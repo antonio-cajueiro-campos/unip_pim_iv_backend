@@ -23,9 +23,9 @@ Contém os códigos de banco de dados e de infraestrutura do projeto
 Contém os testes unitários do projeto
 
 ## Tecnologias Empregadas
-> Linguagem: C#
-> Framework: .NET ASPNet CORE 6
-> Database: SQL Server
+- Linguagem: C#
+- Framework: .NET ASPNet CORE 6
+- Database: SQL Server
 
 ## Instalação
 
