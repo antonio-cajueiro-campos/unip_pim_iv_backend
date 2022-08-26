@@ -1,0 +1,109 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "TSB.Portal.Backend.CrossCutting/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TSB.Portal.Backend.CrossCutting.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TSB.Portal.Backend.CrossCutting.dll": {}
+        }
+      },
+      "TSB.Portal.Backend.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TSB.Portal.Backend.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TSB.Portal.Backend.Infra.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TSB.Portal.Backend.CrossCutting/1.0.0": {
+      "type": "project",
+      "path": "../TSB.Portal.Backend.CrossCutting/TSB.Portal.Backend.CrossCutting.csproj",
+      "msbuildProject": "../TSB.Portal.Backend.CrossCutting/TSB.Portal.Backend.CrossCutting.csproj"
+    },
+    "TSB.Portal.Backend.Infra/1.0.0": {
+      "type": "project",
+      "path": "../TSB.Portal.Backend.Infra/TSB.Portal.Backend.Infra.csproj",
+      "msbuildProject": "../TSB.Portal.Backend.Infra/TSB.Portal.Backend.Infra.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "TSB.Portal.Backend.CrossCutting >= 1.0.0",
+      "TSB.Portal.Backend.Infra >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Akky\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.Application\\TSB.Portal.Backend.Application.csproj",
+      "projectName": "TSB.Portal.Backend.Application",
+      "projectPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.Application\\TSB.Portal.Backend.Application.csproj",
+      "packagesPath": "C:\\Users\\Akky\\.nuget\\packages\\",
+      "outputPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Akky\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj": {
+              "projectPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj"
+            },
+            "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.Infra\\TSB.Portal.Backend.Infra.csproj": {
+              "projectPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.Infra\\TSB.Portal.Backend.Infra.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

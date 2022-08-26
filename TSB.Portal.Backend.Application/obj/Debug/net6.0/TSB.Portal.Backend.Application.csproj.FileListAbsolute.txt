@@ -1,0 +1,17 @@
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.Application.deps.json
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.Application.dll
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.Application.pdb
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.CrossCutting.dll
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.Infra.dll
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.CrossCutting.pdb
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\bin\Debug\net6.0\TSB.Portal.Backend.Infra.pdb
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.csproj.AssemblyReference.cache
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.AssemblyInfoInputs.cache
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.AssemblyInfo.cs
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.csproj.CoreCompileInputs.cache
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.csproj.CopyComplete
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.dll
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\refint\TSB.Portal.Backend.Application.dll
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\TSB.Portal.Backend.Application.pdb
+E:\antonio\unip\unip_pim_iv_backend\TSB.Portal.Backend.Application\obj\Debug\net6.0\ref\TSB.Portal.Backend.Application.dll
