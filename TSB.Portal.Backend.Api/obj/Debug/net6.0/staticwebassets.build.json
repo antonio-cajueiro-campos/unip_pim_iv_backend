@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "RpXpF4b1LoclPDq6z/S3hs5CxEliVhRZQdCv8XoUoCw=",
+  "Source": "TSB.Portal.Backend.Api",
+  "BasePath": "_content/TSB.Portal.Backend.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
