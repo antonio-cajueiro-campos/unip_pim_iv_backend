@@ -1,7 +1,7 @@
 # unip_pim_iv_backend
 Backend do projeto de PIM do quarto semestre da Universidade Paulista UNIP
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/antonio-cajueiro-campos/unip_pim_iv_backend)
 
 Projeto criado utilizando a arquitetura limpa (Clean Architecture)
 
