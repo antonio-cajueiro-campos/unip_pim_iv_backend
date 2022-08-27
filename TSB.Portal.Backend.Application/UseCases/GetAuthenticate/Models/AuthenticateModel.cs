@@ -1,4 +1,4 @@
-namespace TSB.Portal.Backend.Application.UseCase.GetAuthenticate.Models;
+namespace TSB.Portal.Backend.Application.UseCases.GetAuthenticate.Models;
 public class AuthenticateModel
 {
 	public string Username { get; set; }

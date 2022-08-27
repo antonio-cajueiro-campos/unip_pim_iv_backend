@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TSB.Portal.Backend.Application.UseCase.GetAuthenticate.Models;
+using TSB.Portal.Backend.Application.UseCases.GetAuthenticate.Models;
 
 namespace TSB.Portal.Backend.Api.Controllers;
 

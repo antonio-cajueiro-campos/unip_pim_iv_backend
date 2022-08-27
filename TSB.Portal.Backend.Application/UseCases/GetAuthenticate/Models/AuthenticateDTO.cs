@@ -1,4 +1,4 @@
-namespace TSB.Portal.Backend.Application.UseCase.GetAuthenticate.Models;
+namespace TSB.Portal.Backend.Application.UseCases.GetAuthenticate.Models;
 public class AuthenticateDTO
 {
 	public string Username { get; set; }
