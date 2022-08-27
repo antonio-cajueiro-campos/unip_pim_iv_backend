@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TSB.Portal.Backend.Application.UseCases.GetAuthenticate.Models;
+using TSB.Portal.Backend.Application.UseCases.Authenticate;
 
 namespace TSB.Portal.Backend.Api.Controllers;
 
@@ -7,8 +7,10 @@ namespace TSB.Portal.Backend.Api.Controllers;
 [Route("[controller]")]
 public class AuthenticateController : ControllerBase
 {
-    public AuthenticateController()
+    public AuthenticateUseCase authenticate;
+    public AuthenticateController(AuthenticateUseCase authenticate)
     {
+        this.authenticate = authenticate;
     }
 
     [HttpPost("validate")]
@@ -18,8 +20,10 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] AuthenticateDTO authenticate)
+    public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
+        this.authenticate.Login(authenticate);
+
     	return new ObjectResult("");
     }
 }

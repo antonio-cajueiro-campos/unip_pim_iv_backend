@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace TSB.Portal.Backend.Infra.Repositories.Common;
-public abstract class BaseRepository
+public class BaseExternalRepository : DbContext
 {
-	
+	public BaseExternalRepository(DbContextOptions<BaseExternalRepository> opt) : base(opt) { }
 }
