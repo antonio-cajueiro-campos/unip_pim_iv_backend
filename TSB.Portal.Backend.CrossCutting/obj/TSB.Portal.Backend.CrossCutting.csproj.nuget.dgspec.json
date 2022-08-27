@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj": {}
+    "e:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj": {}
   },
   "projects": {
-    "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj": {
+    "e:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj",
+        "projectUniqueName": "e:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj",
         "projectName": "TSB.Portal.Backend.CrossCutting",
-        "projectPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj",
+        "projectPath": "e:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\TSB.Portal.Backend.CrossCutting.csproj",
         "packagesPath": "C:\\Users\\Akky\\.nuget\\packages\\",
-        "outputPath": "E:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\obj\\",
+        "outputPath": "e:\\antonio\\unip\\unip_pim_iv_backend\\TSB.Portal.Backend.CrossCutting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Akky\\AppData\\Roaming\\NuGet\\NuGet.Config",

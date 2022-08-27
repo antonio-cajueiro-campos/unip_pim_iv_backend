@@ -1,4 +1,5 @@
- using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using TSB.Portal.Backend.Application.UseCase.GetAuthenticate.Models;
 
 namespace TSB.Portal.Backend.Api.Controllers;
 
@@ -17,7 +18,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] CredentialsDTO credentials)
+    public IActionResult Login([FromBody] AuthenticateDTO authenticate)
     {
     	return new ObjectResult("");
     }
