@@ -1,20 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BCryptNet = BCrypt.Net.BCrypt;
-using TSB.Portal.Backend.Infra.Repositories.AuthenticateRepository;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Infra.Repositories.CredentialRepository.Entity;
+using TSB.Portal.Backend.Infra.Repositories;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IAuthenticateUseCase
 {
-	private CredentialRepository database { get; set; }
+	private DataContext database { get; set; }
 	private IConfiguration configuration { get; set; }
-	public AuthenticateUseCase(CredentialRepository database, IConfiguration configuration)
+	public AuthenticateUseCase(DataContext database, IConfiguration configuration)
 	{
 		this.database = database;
 		this.configuration = configuration;
