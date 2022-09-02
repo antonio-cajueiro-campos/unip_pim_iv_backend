@@ -38,7 +38,7 @@ dotnet run
 
 ## Banco de dados
 # Acesso
-- Para poder obter acesso ao banco de dados o projeto irá ser encessário a Cloud SQL Proxy da Google
+- Para poder obter acesso ao banco de dados do projeto irá ser necessário a Cloud SQL Proxy da Google
 - Entre em contato com o EM do projeto https://github.com/antonio-cajueiro-campos para mais informações
 
 # Conectando
