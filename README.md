@@ -36,11 +36,11 @@ dotnet restore
 dotnet run
 ```
 
-## Banco de dados
-# Acesso
+# Banco de dados
+## Acesso
 - Para poder obter acesso ao banco de dados do projeto irá ser necessário a Cloud SQL Proxy da Google
 - Entre em contato com o EM do projeto https://github.com/antonio-cajueiro-campos para mais informações
 
-# Conectando
+## Conectando
 - Após ter obtido os arquivos necessários para a conexão, execute o comando que está dentro do tsb-gcp-proxy
 - Uma vez executado, a conexão com o banco de dados irá ser válida para localhost (127.0.0.1:1433)
