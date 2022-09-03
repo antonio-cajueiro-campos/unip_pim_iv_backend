@@ -1,7 +1,7 @@
 using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
-public class UserRegisterOutput : BaseOutput
+public class UserRegisterOutput
 {
 	public string Token { get; set; }
 

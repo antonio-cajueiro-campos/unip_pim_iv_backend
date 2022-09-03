@@ -2,7 +2,7 @@ using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 
-public class AuthenticateOutput : BaseOutput
+public class AuthenticateOutput
 {
 	public string Token { get; set; }
 
