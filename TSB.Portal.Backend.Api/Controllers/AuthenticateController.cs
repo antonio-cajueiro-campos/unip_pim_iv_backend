@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
+using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
+using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
+using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken.Interfaces;
 
 namespace TSB.Portal.Backend.Api.Controllers;
 
@@ -7,23 +10,29 @@ namespace TSB.Portal.Backend.Api.Controllers;
 [Route("[controller]")]
 public class AuthenticateController : ControllerBase
 {
-    public AuthenticateUseCase authenticate;
-    public AuthenticateController(AuthenticateUseCase authenticate)
+    public IAuthenticateUseCase authenticate;
+    public IValidateJwtTokenUseCase validateJwtTokenUseCase;
+    public AuthenticateController(IAuthenticateUseCase authenticate, IValidateJwtTokenUseCase validateJwtTokenUseCase)
     {
         this.authenticate = authenticate;
-    }
-
-    [HttpPost("validate")]
-    public ObjectResult ValidateJwtToken()
-    {
-        return new ObjectResult("");
+        this.validateJwtTokenUseCase = validateJwtTokenUseCase;
     }
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
-        this.authenticate.Login(authenticate);
+        var result = this.authenticate.Handle(authenticate);
+    	return new ObjectResult(result);
+    }
 
-    	return new ObjectResult("");
+    [HttpPost("validate")]
+    public ObjectResult ValidateJwtToken()
+    {
+        var result = this.validateJwtTokenUseCase.Handle(new ()
+        {
+            Token = Request.Headers["Authorization"]
+        });
+
+        return new ObjectResult(result);
     }
 }

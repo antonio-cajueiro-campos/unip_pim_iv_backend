@@ -1,14 +1,15 @@
+using TSB.Portal.Backend.Application.Transport;
+
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 
-public class AuthenticateOutput
+public class AuthenticateOutput : BaseOutput
 {
 	public string Token { get; set; }
-	public AuthenticateOutput(string Token)
+
+	public AuthenticateOutput(string token)
 	{
-		this.Token = Token;
+		Token = token;
 	}
 
-	public AuthenticateOutput()
-	{
-	}
+	public AuthenticateOutput()	{}
 }

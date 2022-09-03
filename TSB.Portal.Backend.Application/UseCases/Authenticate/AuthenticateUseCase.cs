@@ -8,6 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Infra.Repositories.CredentialRepository.Entity;
 using TSB.Portal.Backend.Infra.Repositories;
+using TSB.Portal.Backend.CrossCutting.Constants;
+using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IAuthenticateUseCase
@@ -20,50 +22,36 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 		this.configuration = configuration;
 	}
 
-	public AuthenticateOutput Login(AuthenticateInput credentials)
+	public DefaultResponse<AuthenticateOutput> Handle(AuthenticateInput authenticateInput)
 	{
-		AuthenticateOutput authenticateOutput = this.Authenticate(credentials);
+		DefaultResponse<AuthenticateOutput> output;
+		try {
+			AuthenticateOutput authenticateOutput = this.Authenticate(authenticateInput);
+			
+			output = new () {
+				StatusCode = 200,
+				Error = false,
+				Data = authenticateOutput,
+				Message = Messages.Authenticated
+			};
 
-		return authenticateOutput;
+		} catch (Exception ex) {
+			output = new DefaultResponse<AuthenticateOutput> {
+				StatusCode = 500,
+				Error = true,
+				Data = null,
+				Message = Messages.Error + ex.ToString()
+			};
+		}
+
+		return output;
 	}
-
-	// public ResponseModel ValidateJwtToken(string token)
-	// {
-	// 	if (string.IsNullOrEmpty(token)) return GenericResponses.Unauthorized();
-
-	// 	token = token.Replace("Bearer ", "");
-
-	// 	var tokenHandler = new JwtSecurityTokenHandler();
-	// 	var secretKey = Encoding.ASCII.GetBytes(configuration["Jwt:SecretKey"]);
-	// 	try
-	// 	{
-	// 		tokenHandler.ValidateToken(token, new TokenValidationParameters
-	// 		{
-	// 			ValidateIssuerSigningKey = true,
-	// 			IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-	// 			ValidateIssuer = false,
-	// 			ValidateAudience = false,
-	// 			ClockSkew = TimeSpan.Zero
-	// 		}, out SecurityToken validatedToken);
-
-	// 		var jwtToken = (JwtSecurityToken)validatedToken;
-
-	// 		DateTime tokenExpiration = jwtToken.ValidTo.AddHours(-3);
-
-	// 		return token.Authenticated($"JWT token válido até {tokenExpiration}");
-	// 	}
-	// 	catch
-	// 	{
-	// 		return GenericResponses.Unauthorized();
-	// 	}
-	// }
 
 	public AuthenticateOutput Authenticate(AuthenticateInput authenticateInput)
 	{
 		try
 		{
 			Credential credential = database.Credentials.Include(c => c.Roles).SingleOrDefault(x => x.Username == authenticateInput.Username);
-
 			if (credential == null || !BCryptNet.Verify(authenticateInput.Password, credential.Password))
 			{
 				return new AuthenticateOutput();
@@ -75,6 +63,12 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 		{
 			return new AuthenticateOutput();
 		}
+		catch (Exception ex)
+		{
+			System.Console.WriteLine(ex);
+		}
+
+		return new AuthenticateOutput();
 	}
 
 	private string GenerateToken(Credential credential)

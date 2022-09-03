@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
-using TSB.Portal.Backend.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -24,17 +21,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
-// Database configuration
-string connectionString = configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<DataContext>(options => {
-    options.UseSqlServer(connectionString);
-});
-
-
 builder.Services.AddControllers();
 
 // Dependecy Injection
-builder.Services.AddScoped<IAuthenticateUseCase, AuthenticateUseCase>();
+builder.Services.AddDependecies();
+
+builder.Services.AddDataContext(configuration).AddDbServices();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

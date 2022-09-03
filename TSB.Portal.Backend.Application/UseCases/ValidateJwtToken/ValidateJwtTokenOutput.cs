@@ -1,0 +1,16 @@
+using TSB.Portal.Backend.Application.Transport;
+
+namespace TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
+public class ValidateJwtTokenOutput : BaseOutput
+{
+	public bool IsValidToken { get; set; }
+	public DateTime? TokenExpire { get; set; }
+
+	public ValidateJwtTokenOutput(bool isValidToken, DateTime? tokenExpire)
+	{
+		IsValidToken = isValidToken;
+		TokenExpire = tokenExpire;
+	}
+
+	public ValidateJwtTokenOutput()	{}
+}
