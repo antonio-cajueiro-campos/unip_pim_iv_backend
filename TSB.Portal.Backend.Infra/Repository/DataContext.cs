@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using TSB.Portal.Backend.Infra.Repositories.CredentialRepository.Entity;
+using TSB.Portal.Backend.Infra.Repository.Entities;
 
-namespace TSB.Portal.Backend.Infra.Repositories;
+namespace TSB.Portal.Backend.Infra.Repository;
 public class DataContext : DbContext, IDataContext
 {
 	public DbSet<Credential> Credentials { get; set; }
-	public DbSet<Role> Roles { get; set; }
+	public DbSet<User> Users { get; set; }
 	
 	public DataContext() {}
 	public DataContext(DbContextOptions<DataContext> opt) : base(opt) { }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TSB.Portal.Backend.Infra.Repositories;
+using TSB.Portal.Backend.Infra.Repository;
 
 public static class DataExtensions {
 	public static IServiceCollection AddDbServices(this IServiceCollection self)
