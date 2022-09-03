@@ -15,5 +15,6 @@ public class UserRegisterInput {
 	
 	[Required(ErrorMessage = "Preencha o campo Documento.")]
 	public string Document { get; set; }
-	
+
+	public Roles? Role { get; set; }
 }

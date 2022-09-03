@@ -10,5 +10,7 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		public const string Authenticated = "Autorizado com sucesso";
 		public const string Error = "Oops! Algo deu errado e foi gerado o seguinte erro no servidor: ";
 		public const string Unauthorized = "Não autorizado.";
+		public const string UserAlreadyTaken = "Username já utilizado.";
+		public const string UserNotFound = "Usuário não encontrado";
     }
 }

@@ -22,9 +22,9 @@ public class UserController : ControllerBase
 
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<UserRegisterOutput>))]
-    public IActionResult Register([FromBody] UserRegisterInput userRegister, [FromRoute] Roles roles)
+    public IActionResult Register([FromBody] UserRegisterInput userRegister)
     {
-        var result = this.UserRegisterUseCase.Handle(userRegister, roles);
+        var result = this.UserRegisterUseCase.Handle(userRegister);
     	return new ObjectResult(result);
     }
 
