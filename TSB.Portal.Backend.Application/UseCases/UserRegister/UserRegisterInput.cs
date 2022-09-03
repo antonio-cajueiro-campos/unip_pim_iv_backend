@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using TSB.Portal.Backend.CrossCutting.Enums;
+using TSB.Portal.Backend.CrossCutting.Validation;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterInput {
@@ -14,6 +15,7 @@ public class UserRegisterInput {
 	public string Name { get; set; }
 	
 	[Required(ErrorMessage = "Preencha o campo Documento.")]
+	[Document]
 	public string Document { get; set; }
 
 	public Roles? Role { get; set; }

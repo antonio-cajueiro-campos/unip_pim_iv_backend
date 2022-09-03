@@ -28,7 +28,7 @@ public class UserController : ControllerBase
     	return new ObjectResult(result);
     }
 
-    [HttpGet("user-infos")]
+    [HttpGet("infos")]
     public IActionResult GetUserInfos()
     {
         var result = this.GetUserInfosUseCase.Handle(new ()
@@ -38,7 +38,7 @@ public class UserController : ControllerBase
     	return new ObjectResult(result);
     }
 
-    [HttpGet("user-infos/{id}")]
+    [HttpGet("infos/{id}")]
     public IActionResult GetUserInfosById(long id)
     {
         var result = this.GetUserInfosUseCase.Handle(new ()
