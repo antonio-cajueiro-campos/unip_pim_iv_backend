@@ -6,8 +6,8 @@ using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
-using TSB.Portal.Backend.Infra.Repositories.CredentialRepository.Entity;
-using TSB.Portal.Backend.Infra.Repositories;
+using TSB.Portal.Backend.Infra.Repository.Entities;
+using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.Transport;
 
@@ -51,7 +51,7 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 	{
 		try
 		{
-			Credential credential = database.Credentials.Include(c => c.Roles).SingleOrDefault(x => x.Username == authenticateInput.Username);
+			Credential credential = database.Credentials.Include(c => c.Role).SingleOrDefault(x => x.Username == authenticateInput.Username);
 			if (credential == null || !BCryptNet.Verify(authenticateInput.Password, credential.Password))
 			{
 				return new AuthenticateOutput();
@@ -79,11 +79,7 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 		var claims = new List<Claim>();
 		claims.Add(new Claim("Id", credential.Id.ToString()));
 
-		foreach (var authRole in credential.Roles)
-		{
-			var role = this.database.Roles.Find(authRole.RoleId);
-			claims.Add(new Claim(ClaimTypes.Role, role.Name));
-		}
+		claims.Add(new Claim(ClaimTypes.Role, credential.Role));
 
 		var jwt = new JwtSecurityToken(
 			issuer: configuration["Jwt:ValidIssuer"],
@@ -92,6 +88,7 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 			signingCredentials: credenciais,
 			claims: claims
 		);
+
 		return new JwtSecurityTokenHandler().WriteToken(jwt);
 	}
 }

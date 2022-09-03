@@ -1,9 +1,9 @@
 namespace TSB.Portal.Backend.CrossCutting.Enums
 {
-	public enum Sinistros
+	public enum Roles
 	{
-		Fogo,
-		Roubo,
-		Enchente
+		Admin,
+		Segurado,
+		Funcionario
 	}
 }

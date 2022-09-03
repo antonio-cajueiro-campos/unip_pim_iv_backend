@@ -3,7 +3,7 @@ using TSB.Portal.Backend.Application.Transport;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using TSB.Portal.Backend.Infra.Repositories;
+using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken.Interfaces;
 
