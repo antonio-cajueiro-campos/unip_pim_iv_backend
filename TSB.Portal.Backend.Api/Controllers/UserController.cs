@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using TSB.Portal.Backend.Application.Transport;
-using TSB.Portal.Backend.Application.UseCases.GetUserInfos.Interfaces;
+using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
+using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
-using TSB.Portal.Backend.Application.UseCases.UserRegister.Interfaces;
-using TSB.Portal.Backend.CrossCutting.Enums;
 
 namespace TSB.Portal.Backend.Api.Controllers;
 
@@ -12,9 +10,9 @@ namespace TSB.Portal.Backend.Api.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public IUserRegisterUseCase UserRegisterUseCase;
-    public IGetUserInfosUseCase GetUserInfosUseCase;
-    public UserController(IUserRegisterUseCase userRegisterUseCase, IGetUserInfosUseCase getUserInfosUseCase)
+    public IDefaultUseCase<UserRegisterOutput, UserRegisterInput> UserRegisterUseCase;
+    public IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> GetUserInfosUseCase;
+    public UserController(IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegisterUseCase, IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfosUseCase)
     {
         this.UserRegisterUseCase = userRegisterUseCase;
         this.GetUserInfosUseCase = getUserInfosUseCase;

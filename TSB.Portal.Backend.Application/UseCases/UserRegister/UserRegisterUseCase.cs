@@ -1,10 +1,8 @@
 using TSB.Portal.Backend.Application.Transport;
-using TSB.Portal.Backend.Application.UseCases.UserRegister.Interfaces;
 using TSB.Portal.Backend.CrossCutting.Extensions;
 using TSB.Portal.Backend.Infra.Repository;
 using BCryptNet = BCrypt.Net.BCrypt;
 using TSB.Portal.Backend.Infra.Repository.Entities;
-using TSB.Portal.Backend.CrossCutting.Enums;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
 using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
@@ -12,8 +10,8 @@ using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
 	private DataContext database { get; set; }
-	private IAuthenticateUseCase authenticateUseCase { get; set; }
-	public UserRegisterUseCase(DataContext database, IAuthenticateUseCase authenticateUseCase)
+	private IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticateUseCase { get; set; }
+	public UserRegisterUseCase(DataContext database, IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticateUseCase)
 	{
 		this.database = database;
 		this.authenticateUseCase = authenticateUseCase;
