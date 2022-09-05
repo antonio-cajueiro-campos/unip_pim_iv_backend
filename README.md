@@ -36,15 +36,6 @@ dotnet restore
 dotnet run
 ```
 
-# Banco de dados
-## Acesso
-- Para poder obter acesso ao banco de dados do projeto irá ser necessário a [Cloud SQL Proxy da Google](https://cloud.google.com/sql/docs/mysql/sql-proxy#windows-64-bit)
-- Entre em contato com o EM do projeto https://github.com/antonio-cajueiro-campos para mais informações
-
-## Conectando
-- Após ter obtido os arquivos necessários para a conexão, execute o comando que está dentro do tsb-gcp-proxy
-- Uma vez executado, a conexão com o banco de dados irá ser válida para localhost (127.0.0.1:1433)
-
 # Conexão com o Front
 - Para poder enviar requisições a API basta utilizar o link de deploy https://tsb-portal.herokuapp.com/
 - Contará também com a documentação e consulta em tempo real da aplicação com o [Swagger da API](https://tsb-portal.herokuapp.com/swagger/index.html)
