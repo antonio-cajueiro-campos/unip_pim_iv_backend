@@ -46,5 +46,5 @@ dotnet run
 - Uma vez executado, a conexão com o banco de dados irá ser válida para localhost (127.0.0.1:1433)
 
 # Conexão com o Front
-- Para poder enviar requisições a API basta utilizar o link de deploy http://tsb-backend.ddns.net:5140
-- Contará também com a documentação e consulta em tempo real da aplicação com o [Swagger da API](http://tsb-backend.ddns.net:5140/swagger/index.html)
+- Para poder enviar requisições a API basta utilizar o link de deploy https://tsb-portal.herokuapp.com/
+- Contará também com a documentação e consulta em tempo real da aplicação com o [Swagger da API](https://tsb-portal.herokuapp.com/swagger/index.html)

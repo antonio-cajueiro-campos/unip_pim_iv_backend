@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-dev
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
 
 COPY *.csproj ./
@@ -10,4 +10,4 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-CMD ASPNETCORE_URLS="http://*:$PORT" dotnet TSB.Portal.Backend.Api
+CMD ASPNETCORE_URLS="http://*:$PORT" dotnet TSB.Portal.Backend.Api.dll
