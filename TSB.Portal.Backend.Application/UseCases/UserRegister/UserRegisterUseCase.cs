@@ -10,7 +10,7 @@ using TSB.Portal.Backend.Application.UseCases.Authenticate;
 using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
-public class UserRegisterUseCase : IUserRegisterUseCase {
+public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
 	private DataContext database { get; set; }
 	private IAuthenticateUseCase authenticateUseCase { get; set; }
 	public UserRegisterUseCase(DataContext database, IAuthenticateUseCase authenticateUseCase)

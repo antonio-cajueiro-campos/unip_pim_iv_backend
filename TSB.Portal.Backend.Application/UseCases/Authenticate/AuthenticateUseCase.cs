@@ -12,7 +12,7 @@ using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
-public class AuthenticateUseCase : IAuthenticateUseCase
+public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, AuthenticateInput>
 {
 	private DataContext database { get; set; }
 	private IConfiguration configuration { get; set; }
