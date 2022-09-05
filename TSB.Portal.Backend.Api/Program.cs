@@ -70,7 +70,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthorization(options =>
 {
 	options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-	options.AddPolicy("Collaborators", policy => policy.RequireRole("Admin", "Commercial", "Financial", "Support", "Technician"));
+	options.AddPolicy("Users", policy => policy.RequireRole("Admin", "Funcionario", "Cliente"));
 });
 
 // Cors
