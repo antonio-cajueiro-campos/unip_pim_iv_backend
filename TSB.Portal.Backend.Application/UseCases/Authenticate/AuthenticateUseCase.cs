@@ -46,7 +46,7 @@ public class AuthenticateUseCase : IAuthenticateUseCase
 			return new () {
 				StatusCode = 200,
 				Error = false,
-				Data = new (GenerateToken(credential)),
+				Data = new ("Bearar " + GenerateToken(credential)),
 				Message = Messages.Authenticated
 			};
 		}
