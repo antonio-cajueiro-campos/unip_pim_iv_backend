@@ -9,26 +9,26 @@ namespace TSB.Portal.Backend.Api.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public IDefaultUseCase<UserRegisterOutput, UserRegisterInput> UserRegisterUseCase;
-    public IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> GetUserInfosUseCase;
-    public UserController(IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegisterUseCase, IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfosUseCase)
+    public IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister;
+    public IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos;
+    public UserController(IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister, IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos)
     {
-        this.UserRegisterUseCase = userRegisterUseCase;
-        this.GetUserInfosUseCase = getUserInfosUseCase;
+        this.userRegister = userRegister;
+        this.getUserInfos = getUserInfos;
     }
 
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<UserRegisterOutput>))]
     public IActionResult Register([FromBody] UserRegisterInput userRegister)
     {
-        var result = this.UserRegisterUseCase.Handle(userRegister);
+        var result = this.userRegister.Handle(userRegister);
     	return new ObjectResult(result);
     }
 
     [HttpGet("infos")]
     public IActionResult GetUserInfos()
     {
-        var result = this.GetUserInfosUseCase.Handle(new ()
+        var result = this.getUserInfos.Handle(new ()
         {
             Token = Request.Headers["Authorization"]
         });
@@ -38,7 +38,7 @@ public class UserController : ControllerBase
     [HttpGet("infos/{id}")]
     public IActionResult GetUserInfosById(long id)
     {
-        var result = this.GetUserInfosUseCase.Handle(new ()
+        var result = this.getUserInfos.Handle(new ()
         {
             Id = id
         });

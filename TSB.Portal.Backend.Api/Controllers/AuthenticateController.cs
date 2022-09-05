@@ -10,11 +10,11 @@ namespace TSB.Portal.Backend.Api.Controllers;
 public class AuthenticateController : ControllerBase
 {
     public IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticate;
-    public IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtTokenUseCase;
-    public AuthenticateController(IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticate, IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtTokenUseCase)
+    public IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken;
+    public AuthenticateController(IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticate, IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken)
     {
         this.authenticate = authenticate;
-        this.validateJwtTokenUseCase = validateJwtTokenUseCase;
+        this.validateJwtToken = validateJwtToken;
     }
 
     [HttpPost("login")]
@@ -27,7 +27,7 @@ public class AuthenticateController : ControllerBase
     [HttpPost("validate")]
     public ObjectResult ValidateJwtToken()
     {
-        var result = this.validateJwtTokenUseCase.Handle(new ()
+        var result = this.validateJwtToken.Handle(new ()
         {
             Token = Request.Headers["Authorization"]
         });
