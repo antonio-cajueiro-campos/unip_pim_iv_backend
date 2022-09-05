@@ -41,6 +41,17 @@ public class ValidateJwtTokenUseCase : IValidateJwtTokenUseCase
 			};
 		}
 
+		if (!validateJwtTokenOutput.IsValidToken)
+		{
+			return new()
+			{
+				StatusCode = 400,
+				Message = Messages.Unauthorized,
+				Data = null,
+				Error = true
+			};
+		}
+
 		return new()
 		{
 			StatusCode = 200,
