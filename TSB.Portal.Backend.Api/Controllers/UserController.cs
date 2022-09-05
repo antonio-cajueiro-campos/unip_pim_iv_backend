@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using TSB.Portal.Backend.Application.Transport;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 
 namespace TSB.Portal.Backend.Api.Controllers;

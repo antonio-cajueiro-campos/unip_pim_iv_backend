@@ -1,6 +1,4 @@
-using TSB.Portal.Backend.Application.Transport;
-
-namespace TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
+namespace TSB.Portal.Backend.Application.Transport;
 public interface IDefaultUseCase<Output, Input>
 {
 	public DefaultResponse<Output> Handle(Input credentials);

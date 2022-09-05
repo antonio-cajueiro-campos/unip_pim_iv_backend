@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;

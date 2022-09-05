@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 
 namespace TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput>

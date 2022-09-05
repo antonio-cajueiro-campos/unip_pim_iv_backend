@@ -2,8 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
+using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public static class DIConfigure

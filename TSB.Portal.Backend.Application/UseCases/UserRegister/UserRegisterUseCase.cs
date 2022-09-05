@@ -5,7 +5,6 @@ using BCryptNet = BCrypt.Net.BCrypt;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
-using TSB.Portal.Backend.Application.UseCases.Authenticate.Interfaces;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
