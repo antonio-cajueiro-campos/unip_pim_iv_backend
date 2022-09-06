@@ -1,5 +1,3 @@
-using TSB.Portal.Backend.Application.Transport;
-
 namespace TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 public class ValidateJwtTokenOutput
 {

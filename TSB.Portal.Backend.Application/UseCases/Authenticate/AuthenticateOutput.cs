@@ -1,5 +1,4 @@
 using TSB.Portal.Backend.Application.EntitiesUseCase;
-using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 

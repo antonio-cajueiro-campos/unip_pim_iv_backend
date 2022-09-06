@@ -29,7 +29,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		return this.Authenticate(authenticateInput);
 	}
 
-	public DefaultResponse<AuthenticateOutput> Authenticate(AuthenticateInput authenticateInput)
+	private DefaultResponse<AuthenticateOutput> Authenticate(AuthenticateInput authenticateInput)
 	{
 		try
 		{

@@ -23,7 +23,7 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 	}
 
 
-	public DefaultResponse<ValidateJwtTokenOutput> ValidateJwtToken(ValidateJwtTokenInput validateJwtTokenInput)
+	private DefaultResponse<ValidateJwtTokenOutput> ValidateJwtToken(ValidateJwtTokenInput validateJwtTokenInput)
 	{
 		var token = validateJwtTokenInput.Token;
 

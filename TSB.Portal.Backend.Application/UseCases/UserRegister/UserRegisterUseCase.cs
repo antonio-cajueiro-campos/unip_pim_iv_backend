@@ -19,7 +19,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		return UserRegister(userRegisterInput);
 	}
 
-	public DefaultResponse<UserRegisterOutput> UserRegister(UserRegisterInput userRegisterInput) {
+	private DefaultResponse<UserRegisterOutput> UserRegister(UserRegisterInput userRegisterInput) {
 
 		if (this.database.Credentials.Any(x => x.Username == userRegisterInput.Username))
 			return new() {
