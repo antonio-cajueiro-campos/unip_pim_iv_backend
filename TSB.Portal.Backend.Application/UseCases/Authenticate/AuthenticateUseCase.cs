@@ -52,7 +52,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 			return new () {
 				StatusCode = 200,
 				Error = false,
-				Data = new ("Bearer " + token, refreshToken, validDate),
+				Data = new ("Bearer " + token, "Bearer " + refreshToken, validDate),
 				Message = Messages.Authenticated
 			};
 		}
