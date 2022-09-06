@@ -1,14 +1,19 @@
+using TSB.Portal.Backend.Application.EntitiesUseCase;
 using TSB.Portal.Backend.Application.Transport;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 
 public class AuthenticateOutput
 {
-	public string Token { get; set; }
+	public JwtEntity Jwt { get; set; }
 
-	public AuthenticateOutput(string token)
+	public AuthenticateOutput(string token, string refreshToken, DateTime? expirationTime)
 	{
-		Token = token;
+		Jwt = new () {
+			Token = token,
+			RefreshToken = refreshToken,
+			ExpirationTime = expirationTime
+		};
 	}
 
 	public AuthenticateOutput()	{}

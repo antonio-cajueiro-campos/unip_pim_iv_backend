@@ -16,11 +16,10 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		this.authenticateUseCase = authenticateUseCase;
 	}
 	public DefaultResponse<UserRegisterOutput> Handle(UserRegisterInput userRegisterInput) {
-		return RegisterUser(userRegisterInput);
+		return UserRegister(userRegisterInput);
 	}
 
-
-	public DefaultResponse<UserRegisterOutput> RegisterUser(UserRegisterInput userRegisterInput) {
+	public DefaultResponse<UserRegisterOutput> UserRegister(UserRegisterInput userRegisterInput) {
 
 		if (this.database.Credentials.Any(x => x.Username == userRegisterInput.Username))
 			return new() {
@@ -47,14 +46,12 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 			Password = userRegisterInput.Password
 		});
 
-		System.Console.WriteLine(authenticateResponse.Data.Token);
-
 		return new() {
 			StatusCode = 201,
 			Error = false,
 			Message = Messages.Created,
 			Data = new() {
-				Token = authenticateResponse.Data.Token
+				Jwt = authenticateResponse.Data.Jwt
 			}
 		};
 	}

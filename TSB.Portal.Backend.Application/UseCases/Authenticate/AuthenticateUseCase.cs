@@ -9,16 +9,19 @@ using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.Transport;
+using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, AuthenticateInput>
 {
 	private DataContext database { get; set; }
 	private IConfiguration configuration { get; set; }
-	public AuthenticateUseCase(DataContext database, IConfiguration configuration)
+	private IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken { get; set; }
+	public AuthenticateUseCase(DataContext database, IConfiguration configuration, IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken)
 	{
 		this.database = database;
 		this.configuration = configuration;
+		this.validateJwtToken = validateJwtToken;
 	}
 
 	public DefaultResponse<AuthenticateOutput> Handle(AuthenticateInput authenticateInput)
@@ -42,10 +45,13 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 				};
 			}
 
+			var token = GenerateToken(credential);
+			var validDate = GetValidDateToken(token);
+
 			return new () {
 				StatusCode = 200,
 				Error = false,
-				Data = new ("Bearer " + GenerateToken(credential)),
+				Data = new ("Bearer " + token, "", validDate),
 				Message = Messages.Authenticated
 			};
 		}
@@ -79,5 +85,14 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		);
 
 		return new JwtSecurityTokenHandler().WriteToken(jwt);
+	}
+
+	private DateTime? GetValidDateToken(string token)
+	{
+		var tokenValidated = this.validateJwtToken.Handle(new () {
+			Token = token
+		});
+
+		return tokenValidated.Data.TokenExpire;
 	}
 }

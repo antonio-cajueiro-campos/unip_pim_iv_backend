@@ -19,17 +19,68 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 
 	public DefaultResponse<ValidateJwtTokenOutput> Handle(ValidateJwtTokenInput validateJwtTokenInput)
 	{
-		ValidateJwtTokenOutput validateJwtTokenOutput;
+		return ValidateJwtToken(validateJwtTokenInput);
+	}
+
+
+	public DefaultResponse<ValidateJwtTokenOutput> ValidateJwtToken(ValidateJwtTokenInput validateJwtTokenInput)
+	{
+		var token = validateJwtTokenInput.Token;
+
+		if (string.IsNullOrEmpty(token))
+		{
+			return new()
+			{
+				StatusCode = 400,
+				Data = new()
+				{
+					IsValidToken = false,
+					TokenExpire = null
+				},
+				Error = true,
+				Message = Messages.Unauthorized
+			};
+		}
 
 		try
 		{
-			validateJwtTokenOutput = ValidateJwtToken(validateJwtTokenInput);
+
+			token = token.Replace("Bearer ", "");
+
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var secretKey = Encoding.ASCII.GetBytes(configuration["Jwt:SecretKey"]);
+
+			tokenHandler.ValidateToken(token, new TokenValidationParameters
+			{
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+				ValidateIssuer = false,
+				ValidateAudience = false,
+				ClockSkew = TimeSpan.Zero
+			}, out SecurityToken validatedToken);
+
+			var jwtToken = (JwtSecurityToken)validatedToken;
+
+			DateTime tokenExpiration = jwtToken.ValidTo.AddHours(-3);
+
+			return new()
+			{
+				StatusCode = 200,
+				Error = false,
+				Message = Messages.Authenticated,
+				Data = new()
+				{
+					IsValidToken = true,
+					TokenExpire = tokenExpiration
+				}
+			};
+
 		}
 		catch (Exception ex)
 		{
 			return new()
 			{
-				StatusCode = 401,
+				StatusCode = 500,
 				Data = new()
 				{
 					IsValidToken = false,
@@ -39,62 +90,5 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 				Message = Messages.Error + ex
 			};
 		}
-
-		if (!validateJwtTokenOutput.IsValidToken)
-		{
-			return new()
-			{
-				StatusCode = 400,
-				Message = Messages.Unauthorized,
-				Data = null,
-				Error = true
-			};
-		}
-
-		return new()
-		{
-			StatusCode = 200,
-			Message = Messages.Authenticated,
-			Data = validateJwtTokenOutput,
-			Error = false
-		};
-	}
-
-
-	public ValidateJwtTokenOutput ValidateJwtToken(ValidateJwtTokenInput validateJwtTokenInput)
-	{
-		var token = validateJwtTokenInput.Token;
-
-		if (string.IsNullOrEmpty(token))
-			return new ValidateJwtTokenOutput
-			{
-				IsValidToken = false,
-				TokenExpire = null
-			};
-
-		token = validateJwtTokenInput.Token.Replace("Bearer ", "");
-
-		var tokenHandler = new JwtSecurityTokenHandler();
-		var secretKey = Encoding.ASCII.GetBytes(configuration["Jwt:SecretKey"]);
-
-		tokenHandler.ValidateToken(token, new TokenValidationParameters
-		{
-			ValidateIssuerSigningKey = true,
-			IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-			ValidateIssuer = false,
-			ValidateAudience = false,
-			ClockSkew = TimeSpan.Zero
-		}, out SecurityToken validatedToken);
-
-		var jwtToken = (JwtSecurityToken)validatedToken;
-
-		DateTime tokenExpiration = jwtToken.ValidTo.AddHours(-3);
-
-		return new()
-		{
-			IsValidToken = true,
-			TokenExpire = tokenExpiration
-		};
-
 	}
 }

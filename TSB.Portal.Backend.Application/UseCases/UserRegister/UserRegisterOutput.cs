@@ -1,13 +1,13 @@
-using TSB.Portal.Backend.Application.Transport;
+using TSB.Portal.Backend.Application.EntitiesUseCase;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterOutput
 {
-	public string Token { get; set; }
+	public JwtEntity Jwt { get; set; }
 
-	public UserRegisterOutput(string token)
+	public UserRegisterOutput(JwtEntity jwt)
 	{
-		Token = token;
+		this.Jwt = jwt;
 	}
 
 	public UserRegisterOutput()	{}
