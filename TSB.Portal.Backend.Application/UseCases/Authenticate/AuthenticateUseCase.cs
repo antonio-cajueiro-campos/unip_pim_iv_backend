@@ -46,12 +46,13 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 			}
 
 			var token = GenerateToken(credential);
+			var refreshToken = GenerateRefreshToken(credential);
 			var validDate = GetValidDateToken(token);
 
 			return new () {
 				StatusCode = 200,
 				Error = false,
-				Data = new ("Bearer " + token, "", validDate),
+				Data = new ("Bearer " + token, refreshToken, validDate),
 				Message = Messages.Authenticated
 			};
 		}
@@ -73,12 +74,35 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 
 		var claims = new List<Claim>();
 		claims.Add(new Claim("Id", credential.Id.ToString()));
-
 		claims.Add(new Claim(ClaimTypes.Role, credential.Role));
+
+		var expirationTime = configuration["Jwt:TokenExpirationHours"];
 
 		var jwt = new JwtSecurityToken(
 			issuer: configuration["Jwt:ValidIssuer"],
-			expires: DateTime.Now.AddDays(7),
+			expires: DateTime.Now.AddHours(Convert.ToDouble(expirationTime)),
+			audience: configuration["Jwt:ValidAudience"],
+			signingCredentials: credenciais,
+			claims: claims
+		);
+
+		return new JwtSecurityTokenHandler().WriteToken(jwt);
+	}
+
+	private string GenerateRefreshToken(Credential credential)
+	{
+		var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
+		var credenciais = new SigningCredentials(chaveSimetrica, SecurityAlgorithms.HmacSha256Signature);
+
+		var claims = new List<Claim>();
+		claims.Add(new Claim("Id", credential.Id.ToString()));
+		claims.Add(new Claim(ClaimTypes.Role, credential.Role));
+
+		var expirationTime = configuration["Jwt:RefreshTokenExpirationHours"];
+
+		var jwt = new JwtSecurityToken(
+			issuer: configuration["Jwt:ValidIssuer"],
+			expires: DateTime.Now.AddHours(Convert.ToDouble(expirationTime)),
 			audience: configuration["Jwt:ValidAudience"],
 			signingCredentials: credenciais,
 			claims: claims
