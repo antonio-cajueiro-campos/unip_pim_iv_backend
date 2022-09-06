@@ -4,11 +4,4 @@ namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterOutput
 {
 	public JwtEntity Jwt { get; set; }
-
-	public UserRegisterOutput(JwtEntity jwt)
-	{
-		this.Jwt = jwt;
-	}
-
-	public UserRegisterOutput()	{}
 }

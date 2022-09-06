@@ -47,12 +47,18 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 
 			var token = GenerateToken(credential);
 			var refreshToken = GenerateRefreshToken(credential);
-			var validDate = GetValidDateToken(token);
+			var expirationTime = GetExpirationTimeToken(token);
 
 			return new () {
 				StatusCode = 200,
 				Error = false,
-				Data = new ("Bearer " + token, "Bearer " + refreshToken, validDate),
+				Data = new () {
+					Jwt = new () {
+						Token = "Bearer " + token,
+						RefreshToken = "Bearer " + refreshToken,
+						ExpirationTime = expirationTime
+					}					
+				},
 				Message = Messages.Authenticated
 			};
 		}
@@ -111,7 +117,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		return new JwtSecurityTokenHandler().WriteToken(jwt);
 	}
 
-	private DateTime? GetValidDateToken(string token)
+	private DateTime? GetExpirationTimeToken(string token)
 	{
 		var tokenValidated = this.validateJwtToken.Handle(new () {
 			Token = token
