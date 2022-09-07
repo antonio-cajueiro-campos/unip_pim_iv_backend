@@ -30,7 +30,7 @@ public class UserController : ControllerBase
     {
         var result = this.getUserInfos.Handle(new ()
         {
-            Token = Request.Headers["Authorization"]
+            ClaimsPrincipal = HttpContext.User
         });
     	return new ObjectResult(result);
     }

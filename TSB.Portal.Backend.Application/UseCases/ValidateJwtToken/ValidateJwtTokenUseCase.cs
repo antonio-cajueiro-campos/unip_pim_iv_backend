@@ -57,9 +57,9 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 				ValidateIssuer = false,
 				ValidateAudience = false,
 				ClockSkew = TimeSpan.Zero
-			}, out SecurityToken validatedToken);
+			}, out SecurityToken jsonToken);
 
-			var jwtToken = (JwtSecurityToken)validatedToken;
+			var jwtToken = jsonToken as JwtSecurityToken;
 
 			DateTime tokenExpiration = jwtToken.ValidTo.AddHours(-3);
 

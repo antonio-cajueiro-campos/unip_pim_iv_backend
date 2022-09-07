@@ -5,6 +5,7 @@ using BCryptNet = BCrypt.Net.BCrypt;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
+using System.Text.RegularExpressions;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
@@ -21,11 +22,22 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 
 	private DefaultResponse<UserRegisterOutput> UserRegister(UserRegisterInput userRegisterInput) {
 
-		if (this.database.Credentials.Any(x => x.Username == userRegisterInput.Username))
+		var username = userRegisterInput.Username = userRegisterInput.Username.Trim().ToLower();
+		var document = userRegisterInput.Document = Regex.Replace(userRegisterInput.Document, "[^0-9]", "", RegexOptions.IgnoreCase);
+
+		if (this.database.Credentials.Any(x => x.Username == username))
 			return new() {
 				StatusCode = 400,
 				Error = true,
-				Message = Messages.UserAlreadyTaken,
+				Message = Messages.UsernameAlreadyTaken(username),
+				Data = null
+			};
+
+		if (this.database.Users.Any(x => x.Document == document))
+			return new() {
+				StatusCode = 400,
+				Error = true,
+				Message = Messages.DocumentAlreadyTaken(document),
 				Data = null
 			};
 
@@ -34,17 +46,15 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Segurado";
 
 		var user = userRegisterInput.MapObjectTo(new User());
+		user.Credential = credential;
         user.RegistrationDate = DateTime.Now;
 
-		this.database.Credentials.Add(credential);
 		this.database.Users.Add(user);
-
 		this.database.SaveChanges();
 
-		var authenticateResponse = authenticateUseCase.Handle(new() {
-			Username = userRegisterInput.Username,
-			Password = userRegisterInput.Password
-		});
+		var authenticateResponse = authenticateUseCase.Handle(
+			userRegisterInput.MapObjectTo(new AuthenticateInput())
+		);
 
 		return new() {
 			StatusCode = 201,

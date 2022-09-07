@@ -2,6 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TSB.Portal.Backend.Infra.Repository;
 
 #nullable disable
@@ -50,6 +52,9 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
+                    b.Property<long?>("CredentialId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Document")
                         .HasColumnType("nvarchar(max)");
 
@@ -61,7 +66,18 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CredentialId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.User", b =>
+                {
+                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Credential", "Credential")
+                        .WithMany()
+                        .HasForeignKey("CredentialId");
+
+                    b.Navigation("Credential");
                 });
 #pragma warning restore 612, 618
         }

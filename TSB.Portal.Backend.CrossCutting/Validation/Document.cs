@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace TSB.Portal.Backend.CrossCutting.Validation;
 public class Document : ValidationAttribute
@@ -10,7 +11,7 @@ public class Document : ValidationAttribute
 		if (string.IsNullOrEmpty(document)) return ValidationResult.Success;
 
 		document = document.Trim();
-		document = document.Replace(".", "").Replace("-", "").Replace("/", "");
+		document = Regex.Replace(document, "[^0-9]", "", RegexOptions.IgnoreCase);
 
 		if (document.Length == 11) return validateCPF(document) ? ValidationResult.Success : new ValidationResult("CPF inválido.");
 		if (document.Length == 14) return validateCNPJ(document) ? ValidationResult.Success : new ValidationResult("CNPJ inválido.");

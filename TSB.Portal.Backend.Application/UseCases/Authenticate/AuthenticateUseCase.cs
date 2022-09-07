@@ -10,6 +10,7 @@ using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
+using TSB.Portal.Backend.CrossCutting.Extensions;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, AuthenticateInput>
@@ -33,7 +34,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 	{
 		try
 		{
-			Credential credential = database.Credentials.SingleOrDefault(x => x.Username == authenticateInput.Username);
+			Credential credential = database.Credentials.SingleOrDefault(x => x.Username == authenticateInput.Username.Trim());
 			
 			if (credential == null || !BCryptNet.Verify(authenticateInput.Password, credential.Password))
 			{
@@ -46,8 +47,8 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 			}
 
 			var token = GenerateToken(credential);
-			var refreshToken = GenerateRefreshToken(credential);
-			var expirationTime = GetExpirationTimeToken(token);
+			var refreshToken = GenerateToken(credential, true);
+			var expirationTime = token.GetExpirationDateFromToken();
 
 			return new () {
 				StatusCode = 200,
@@ -73,7 +74,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		}
 	}
 
-	private string GenerateToken(Credential credential)
+	private string GenerateToken(Credential credential, bool isRefreshToken = false)
 	{
 		var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
 		var credenciais = new SigningCredentials(chaveSimetrica, SecurityAlgorithms.HmacSha256Signature);
@@ -82,7 +83,8 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		claims.Add(new Claim("Id", credential.Id.ToString()));
 		claims.Add(new Claim(ClaimTypes.Role, credential.Role));
 
-		var expirationTime = configuration["Jwt:TokenExpirationHours"];
+		var tokenExpirationHours = isRefreshToken ? "RefreshTokenExpirationHours" : "TokenExpirationHours";
+		var expirationTime = configuration["Jwt:" + tokenExpirationHours];
 
 		var jwt = new JwtSecurityToken(
 			issuer: configuration["Jwt:ValidIssuer"],
@@ -93,36 +95,5 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		);
 
 		return new JwtSecurityTokenHandler().WriteToken(jwt);
-	}
-
-	private string GenerateRefreshToken(Credential credential)
-	{
-		var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
-		var credenciais = new SigningCredentials(chaveSimetrica, SecurityAlgorithms.HmacSha256Signature);
-
-		var claims = new List<Claim>();
-		claims.Add(new Claim("Id", credential.Id.ToString()));
-		claims.Add(new Claim(ClaimTypes.Role, credential.Role));
-
-		var expirationTime = configuration["Jwt:RefreshTokenExpirationHours"];
-
-		var jwt = new JwtSecurityToken(
-			issuer: configuration["Jwt:ValidIssuer"],
-			expires: DateTime.Now.AddHours(Convert.ToDouble(expirationTime)),
-			audience: configuration["Jwt:ValidAudience"],
-			signingCredentials: credenciais,
-			claims: claims
-		);
-
-		return new JwtSecurityTokenHandler().WriteToken(jwt);
-	}
-
-	private DateTime? GetExpirationTimeToken(string token)
-	{
-		var tokenValidated = this.validateJwtToken.Handle(new () {
-			Token = token
-		});
-
-		return tokenValidated.Data.TokenExpire;
 	}
 }
