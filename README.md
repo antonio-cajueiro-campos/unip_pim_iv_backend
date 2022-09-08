@@ -45,7 +45,7 @@ dotnet run
 	<tr>
     	<td align="center">
 			<a href="https://github.com/Lucas4985">
-				<img src="https://avatars.githubusercontent.com/u/3869412?v=3?s=100" width="100px;" alt=""/><br />
+				<img src="https://avatars.githubusercontent.com/u/102609797?v=4" width="100px;" alt=""/><br />
 				<sub>
 					<b>Lucas Fernandes</b>
 				</sub>
