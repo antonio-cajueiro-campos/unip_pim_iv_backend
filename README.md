@@ -42,10 +42,10 @@ dotnet run
 
 # Desenvolvedores
 <table>
-	<tr>
+	<tr align="center">
     	<td align="center">
 			<a href="https://github.com/antonio-cajueiro-campos">
-				<img src="https://avatars.githubusercontent.com/u/7028783?v=4" style="border-radius:50px" width="100px;" alt=""/><br />
+				<img src="https://avatars.githubusercontent.com/u/7028783?v=4" width="100px;" alt=""/><br />
 				<sub>
 					<b>Antonio Carlos</b>
 				</sub>
