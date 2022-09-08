@@ -14,9 +14,9 @@ Projeto criado utilizando a arquitetura limpa (Clean Architecture)
 - **UnitTest:** Contém os testes unitários do projeto
 
 ## Tecnologias Empregadas
-- Linguagem: C#
-- Framework: .NET ASPNet CORE 6
-- Database: Microsoft SQL Server
+* **Linguagem:** C#
+* **Framework:** .NET ASPNet CORE 6
+* **Database:** Microsoft SQL Server
 
 ## Instalação
 
