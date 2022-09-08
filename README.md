@@ -51,7 +51,7 @@ dotnet run
 				</sub>
 			</a>
 			<br />
-			<a href="https://github.com/all-contributors/cli/commits?author=antonio-cajueiro-campos" title="Code">Commits: 💻</a>
+			<a href="https://github.com/antonio-cajueiro-campos/unip_pim_iv_backend/commits?author=antonio-cajueiro-campos" title="Code">Commits: 💻</a>
 		</td>
     	<td align="center">
 			<a href="https://github.com/Lucas4985">
@@ -61,7 +61,7 @@ dotnet run
 				</sub>
 			</a>
 			<br />
-			<a href="https://github.com/all-contributors/cli/commits?author=Lucas4985" title="Code">Commits: 💻</a>
+			<a href="https://github.com/antonio-cajueiro-campos/unip_pim_iv_backend/commits?author=Lucas4985" title="Code">Commits: 💻</a>
 		</td>
     	<td align="center">
 			<a href="https://github.com/BHOWXY">
@@ -71,7 +71,7 @@ dotnet run
 				</sub>
 			</a>
 			<br />
-			<a href="https://github.com/all-contributors/cli/commits?author=BHOWXY" title="Code">Commits: 💻</a>
+			<a href="https://github.com/antonio-cajueiro-campos/unip_pim_iv_backend/commits?author=BHOWXY" title="Code">Commits: 💻</a>
 		</td>
 	</tr>
 </table>
