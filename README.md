@@ -41,4 +41,17 @@ dotnet run
 - Contará também com a documentação e consulta em tempo real da aplicação com o [Swagger da API](https://tsb-portal.herokuapp.com/swagger/index.html)
 
 # Desenvolvedores
-![Lucas](hhttps://avatars.githubusercontent.com/u/102609797?v=4)
+<table>
+	<tr>
+    	<td align="center">
+			<a href="https://github.com/Lucas4985">
+				<img src="https://avatars.githubusercontent.com/u/3869412?v=3?s=100" width="100px;" alt=""/><br />
+				<sub>
+					<b>Lucas Fernandes</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/all-contributors/cli/commits?author=Lucas4985" title="Code">💻</a>
+		</td>
+	</tr>
+</table>
