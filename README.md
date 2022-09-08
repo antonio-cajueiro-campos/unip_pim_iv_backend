@@ -44,6 +44,18 @@ dotnet run
 <table>
 	<tr>
     	<td align="center">
+			<a href="https://github.com/antonio-cajueiro-campos">
+				<img src="https://avatars.githubusercontent.com/u/7028783?v=4" width="100px;" alt=""/><br />
+				<sub>
+					<b>Antonio Carlos</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/all-contributors/cli/commits?author=antonio-cajueiro-campos" title="Code">Commits: 💻</a>
+		</td>
+	</tr>
+	<tr>
+    	<td align="center">
 			<a href="https://github.com/Lucas4985">
 				<img src="https://avatars.githubusercontent.com/u/102609797?v=4" width="100px;" alt=""/><br />
 				<sub>
@@ -51,7 +63,19 @@ dotnet run
 				</sub>
 			</a>
 			<br />
-			<a href="https://github.com/all-contributors/cli/commits?author=Lucas4985" title="Code">💻</a>
+			<a href="https://github.com/all-contributors/cli/commits?author=Lucas4985" title="Code">Commits: 💻</a>
+		</td>
+	</tr>
+		<tr>
+    	<td align="center">
+			<a href="https://github.com/BHOWXY">
+				<img src="https://avatars.githubusercontent.com/u/91236653?v=4" width="100px;" alt=""/><br />
+				<sub>
+					<b>Maria Eduarda</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/all-contributors/cli/commits?author=BHOWXY" title="Code">Commits: 💻</a>
 		</td>
 	</tr>
 </table>
