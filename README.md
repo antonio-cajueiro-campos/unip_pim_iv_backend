@@ -42,7 +42,7 @@ dotnet run
 
 # Desenvolvedores
 <table>
-	<tr align="center">
+	<tr>
     	<td align="center">
 			<a href="https://github.com/antonio-cajueiro-campos">
 				<img src="https://avatars.githubusercontent.com/u/7028783?v=4" width="100px;" alt=""/><br />
