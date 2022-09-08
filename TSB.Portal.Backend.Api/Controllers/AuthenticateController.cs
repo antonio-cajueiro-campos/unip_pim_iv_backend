@@ -19,6 +19,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<AuthenticateOutput>))]
     public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
         var result = this.authenticate.Handle(authenticate);
@@ -27,6 +28,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("validate")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
     public ObjectResult ValidateJwtToken()
     {
         var result = this.validateJwtToken.Handle(new ()

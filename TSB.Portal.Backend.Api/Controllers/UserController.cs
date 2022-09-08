@@ -28,6 +28,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("infos")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfos()
     {
         var result = this.getUserInfos.Handle(new ()
@@ -39,6 +40,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("infos/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfosById(long id)
     {
         var result = this.getUserInfos.Handle(new ()
