@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
@@ -19,10 +20,11 @@ public class UserController : ControllerBase
 
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<UserRegisterOutput>))]
-    public IActionResult Register([FromBody] UserRegisterInput userRegister)
+    public IActionResult UserRegister([FromBody] UserRegisterInput userRegister)
     {
         var result = this.userRegister.Handle(userRegister);
-    	return new ObjectResult(result);
+
+    	return new ObjectResult(result).SetStatus(result.StatusCode);
     }
 
     [HttpGet("infos")]
@@ -32,7 +34,8 @@ public class UserController : ControllerBase
         {
             ClaimsPrincipal = HttpContext.User
         });
-    	return new ObjectResult(result);
+
+    	return new ObjectResult(result).SetStatus(result.StatusCode);
     }
 
     [HttpGet("infos/{id}")]
@@ -42,6 +45,7 @@ public class UserController : ControllerBase
         {
             Id = id
         });
-    	return new ObjectResult(result);
+        
+    	return new ObjectResult(result).SetStatus(result.StatusCode);
     }
 }

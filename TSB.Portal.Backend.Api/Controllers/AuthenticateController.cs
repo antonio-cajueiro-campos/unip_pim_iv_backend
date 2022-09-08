@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TSB.Portal.Backend.Application.EntitiesUseCase;
+using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
@@ -22,7 +22,8 @@ public class AuthenticateController : ControllerBase
     public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
         var result = this.authenticate.Handle(authenticate);
-    	return new ObjectResult(result);
+        
+    	return new ObjectResult(result).SetStatus(result.StatusCode);
     }
 
     [HttpPost("validate")]
@@ -33,6 +34,6 @@ public class AuthenticateController : ControllerBase
             Token = Request.Headers["Authorization"]
         });
 
-        return new ObjectResult(result);
+        return new ObjectResult(result).SetStatus(result.StatusCode);
     }
 }
