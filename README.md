@@ -16,7 +16,7 @@ Projeto criado utilizando a arquitetura limpa (Clean Architecture)
 ## Tecnologias Empregadas
 - Linguagem: C#
 - Framework: .NET ASPNet CORE 6
-- Database: SQL Server
+- Database: Microsoft SQL Server
 
 ## Instalação
 
@@ -27,11 +27,11 @@ dotnet restore
 dotnet run
 ```
 
-# Conexão com o Front
+## Conexão com o Front
 - Para poder enviar requisições a API basta utilizar o link de deploy https://tsb-portal.herokuapp.com/
 - Contará também com a documentação e consulta em tempo real da aplicação com o [Swagger da API](https://tsb-portal.herokuapp.com/swagger/index.html)
 
-# Desenvolvedores
+## Desenvolvedores
 <table>
 	<tr>
     	<td align="center">
