@@ -3,7 +3,7 @@ namespace TSB.Portal.Backend.CrossCutting.Enums
 	public enum Roles
 	{
 		Admin,
-		Segurado,
+		Cliente,
 		Funcionario
 	}
 }

@@ -43,7 +43,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 
 		var credential = userRegisterInput.MapObjectTo(new Credential());
 		credential.Password = BCryptNet.HashPassword(credential.Password);
-		credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Segurado";
+		credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Cliente";
 
 		var user = userRegisterInput.MapObjectTo(new User());
 		user.Credential = credential;
