@@ -1,3 +1,5 @@
+using TSB.Portal.Backend.Infra.Repository.Entities;
+
 namespace TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 
 public class GetUserInfosOutput
@@ -7,4 +9,5 @@ public class GetUserInfosOutput
 	public string Document { get; set; }
 	public dynamic Credential { get; set; }
 	public DateTime RegistrationDate { get; set; }
+	public User user { get; set; }
 }
