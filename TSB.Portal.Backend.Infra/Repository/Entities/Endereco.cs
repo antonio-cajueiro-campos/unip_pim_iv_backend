@@ -1,5 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TSB.Portal.Backend.Infra.Repository.Entities;
 public class Endereco {
+	
+	[Key]
+	public long Id { get; set; }
 	public string CEP { get; set; }
 	public string Cidade { get; set; }
 	public string Estado { get; set; }
