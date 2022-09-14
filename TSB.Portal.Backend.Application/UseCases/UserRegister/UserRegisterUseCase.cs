@@ -67,7 +67,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		} catch (Exception ex) {
 			return new() {
 				Status = 500,
-				Error = false,
+				Error = true,
 				Message = Messages.Error + ex,
 				Data = null
 			};
