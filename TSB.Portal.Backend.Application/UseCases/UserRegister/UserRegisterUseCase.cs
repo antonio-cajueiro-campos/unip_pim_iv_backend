@@ -27,7 +27,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 
 		if (this.database.Credentials.Any(x => x.Username == username))
 			return new() {
-				StatusCode = 400,
+				Status = 400,
 				Error = true,
 				Message = Messages.UsernameAlreadyTaken(username),
 				Data = null
@@ -35,7 +35,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 
 		if (this.database.Users.Any(x => x.Document == document))
 			return new() {
-				StatusCode = 400,
+				Status = 400,
 				Error = true,
 				Message = Messages.DocumentAlreadyTaken(document),
 				Data = null
@@ -57,7 +57,7 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		);
 
 		return new() {
-			StatusCode = 201,
+			Status = 201,
 			Error = false,
 			Message = Messages.Created,
 			Data = new() {
