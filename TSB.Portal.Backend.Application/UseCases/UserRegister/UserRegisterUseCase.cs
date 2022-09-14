@@ -24,45 +24,53 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 
 		var username = userRegisterInput.Username = userRegisterInput.Username.Trim().ToLower();
 		var document = userRegisterInput.Document = Regex.Replace(userRegisterInput.Document, "[^0-9]", "", RegexOptions.IgnoreCase);
+		try {
+			if (this.database.Credentials.Any(x => x.Username == username))
+				return new() {
+					Status = 400,
+					Error = true,
+					Message = Messages.UsernameAlreadyTaken(username),
+					Data = null
+				};
 
-		if (this.database.Credentials.Any(x => x.Username == username))
+			if (this.database.Users.Any(x => x.Document == document))
+				return new() {
+					Status = 400,
+					Error = true,
+					Message = Messages.DocumentAlreadyTaken(document),
+					Data = null
+				};
+
+			var credential = userRegisterInput.MapObjectTo(new Credential());
+			credential.Password = BCryptNet.HashPassword(credential.Password);
+			credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Cliente";
+
+			var user = userRegisterInput.MapObjectTo(new User());
+			user.Credential = credential;
+			user.RegistrationDate = DateTime.Now;
+
+			this.database.Users.Add(user);
+			this.database.SaveChanges();
+
+			var authenticateResponse = authenticateUseCase.Handle(
+				userRegisterInput.MapObjectTo(new AuthenticateInput())
+			);
+
 			return new() {
-				Status = 400,
-				Error = true,
-				Message = Messages.UsernameAlreadyTaken(username),
+				Status = 201,
+				Error = false,
+				Message = Messages.Created,
+				Data = new() {
+					Jwt = authenticateResponse.Data.Jwt
+				}
+			};
+		} catch (Exception ex) {
+			return new() {
+				Status = 500,
+				Error = false,
+				Message = Messages.Error + ex,
 				Data = null
 			};
-
-		if (this.database.Users.Any(x => x.Document == document))
-			return new() {
-				Status = 400,
-				Error = true,
-				Message = Messages.DocumentAlreadyTaken(document),
-				Data = null
-			};
-
-		var credential = userRegisterInput.MapObjectTo(new Credential());
-		credential.Password = BCryptNet.HashPassword(credential.Password);
-		credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Cliente";
-
-		var user = userRegisterInput.MapObjectTo(new User());
-		user.Credential = credential;
-        user.RegistrationDate = DateTime.Now;
-
-		this.database.Users.Add(user);
-		this.database.SaveChanges();
-
-		var authenticateResponse = authenticateUseCase.Handle(
-			userRegisterInput.MapObjectTo(new AuthenticateInput())
-		);
-
-		return new() {
-			Status = 201,
-			Error = false,
-			Message = Messages.Created,
-			Data = new() {
-				Jwt = authenticateResponse.Data.Jwt
-			}
-		};
+		}
 	}
 }
