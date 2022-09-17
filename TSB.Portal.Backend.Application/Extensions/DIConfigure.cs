@@ -15,6 +15,7 @@ public static class DIConfigure
 		self.AddScoped<IDefaultUseCase<UserRegisterOutput, UserRegisterInput>, UserRegisterUseCase>();
 		self.AddScoped<IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput>, GetUserInfosUseCase>();
 		self.AddScoped<IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput>, ValidateJwtTokenUseCase>();
+		self.AddScoped<IDefaultUseCase<EmployeeRegisterOutput, EmployeeRegisterInput>, EmployeeRegisterUseCase>();
 		
 		return self;
 	}
