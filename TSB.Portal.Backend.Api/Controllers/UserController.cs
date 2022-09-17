@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
+using TSB.Portal.Backend.Application.UseCases.ChangeUserData;
 using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
 
@@ -12,10 +13,17 @@ public class UserController : ControllerBase
 {
     public IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister;
     public IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos;
-    public UserController(IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister, IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos)
+    public IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData;
+    public UserController
+    (
+        IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister, 
+        IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos,
+        IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData
+        )
     {
         this.userRegister = userRegister;
         this.getUserInfos = getUserInfos;
+        this.changeUserData = changeUserData;
     }
 
     [HttpPost("register")]
@@ -50,4 +58,19 @@ public class UserController : ControllerBase
         
     	return new ObjectResult(result).SetStatus(result.Status);
     }
+    [HttpPost("infos")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
+    
+    public IActionResult ChangeUserData([FromBody] ChangeUserDataInput changeUserData)
+    {
+        var result = this.changeUserData.Handle(new ()
+        {
+            ClaimsPrincipal = HttpContext.User,
+            User = changeUserData.User,
+            Funcionario = changeUserData.Funcionario,
+            Cliente = changeUserData.Cliente,
+        } );
+        return new ObjectResult(result).SetStatus(result.StatusCode);
+    }
+    
 }
