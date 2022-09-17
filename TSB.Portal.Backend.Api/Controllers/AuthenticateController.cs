@@ -24,7 +24,7 @@ public class AuthenticateController : ControllerBase
     {
         var result = this.authenticate.Handle(authenticate);
         
-    	return new ObjectResult(result).SetStatus(result.StatusCode);
+    	return new ObjectResult(result).SetStatus(result.Status);
     }
 
     [HttpPost("validate")]
@@ -36,6 +36,6 @@ public class AuthenticateController : ControllerBase
             Token = Request.Headers["Authorization"]
         });
 
-        return new ObjectResult(result).SetStatus(result.StatusCode);
+        return new ObjectResult(result).SetStatus(result.Status);
     }
 }

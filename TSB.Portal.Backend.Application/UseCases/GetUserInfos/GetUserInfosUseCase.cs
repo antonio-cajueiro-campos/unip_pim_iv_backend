@@ -26,7 +26,7 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 		{
 			return new()
 			{
-				StatusCode = 400,
+				Status = 400,
 				Error = true,
 				Data = null,
 				Message = Messages.BadRequest
@@ -43,7 +43,7 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 			{
 				return new()
 				{
-					StatusCode = 404,
+					Status = 404,
 					Error = true,
 					Data = null,
 					Message = Messages.UserNotFound
@@ -59,7 +59,7 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 
 			return new()
 			{
-				StatusCode = 200,
+				Status = 200,
 				Error = false,
 				Data = userData,
 				Message = Messages.Success
@@ -69,7 +69,7 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 		{
 			return new()
 			{
-				StatusCode = 500,
+				Status = 500,
 				Error = true,
 				Data = null,
 				Message = Messages.Error + ex

@@ -31,7 +31,7 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 		{
 			return new()
 			{
-				StatusCode = 400,
+				Status = 400,
 				Data = new()
 				{
 					IsValidToken = false,
@@ -65,7 +65,7 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 
 			return new()
 			{
-				StatusCode = 200,
+				Status = 200,
 				Error = false,
 				Message = Messages.Authenticated,
 				Data = new()
@@ -80,7 +80,7 @@ public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, V
 		{
 			return new()
 			{
-				StatusCode = 500,
+				Status = 500,
 				Data = new()
 				{
 					IsValidToken = false,

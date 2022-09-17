@@ -39,7 +39,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 			if (credential == null || !BCryptNet.Verify(authenticateInput.Password, credential.Password))
 			{
 				return new () {
-					StatusCode = 404,
+					Status = 404,
 					Error = true,
 					Data = null,
 					Message = Messages.UserNotFound
@@ -51,7 +51,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 			var expirationTime = token.GetExpirationDateFromToken();
 
 			return new () {
-				StatusCode = 200,
+				Status = 200,
 				Error = false,
 				Data = new () {
 					Jwt = new () {
@@ -66,7 +66,7 @@ public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, Authentic
 		catch (Exception ex)
 		{
 			return new () {
-				StatusCode = 500,
+				Status = 500,
 				Error = true,
 				Data = null,
 				Message = Messages.Error + ex
