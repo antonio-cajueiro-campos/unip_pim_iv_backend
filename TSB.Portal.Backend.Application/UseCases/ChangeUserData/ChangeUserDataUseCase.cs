@@ -30,6 +30,7 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
                 Message = Messages.BadRequest,
             };
         }
+        
         try
         {
             var UserId = changeUserData.ClaimsPrincipal.GetUserId();
@@ -46,7 +47,6 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
                 Data = null
             };
         }
-
         catch (Exception ex)
         {
             return new()
