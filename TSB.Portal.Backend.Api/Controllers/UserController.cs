@@ -58,9 +58,9 @@ public class UserController : ControllerBase
         
     	return new ObjectResult(result).SetStatus(result.Status);
     }
+
     [HttpPost("infos")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
-    
     public IActionResult ChangeUserData([FromBody] ChangeUserDataInput changeUserData)
     {
         var result = this.changeUserData.Handle(new ()
@@ -70,7 +70,6 @@ public class UserController : ControllerBase
             Funcionario = changeUserData.Funcionario,
             Cliente = changeUserData.Cliente,
         } );
-        return new ObjectResult(result).SetStatus(result.StatusCode);
+        return new ObjectResult(result).SetStatus(result.Status);
     }
-    
 }

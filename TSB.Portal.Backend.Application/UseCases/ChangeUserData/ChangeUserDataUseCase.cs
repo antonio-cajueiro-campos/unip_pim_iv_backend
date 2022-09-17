@@ -25,7 +25,7 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
         {
             return new DefaultResponse<ChangeUserDataOutput>
             {
-                StatusCode = 400,
+                Status = 400,
                 Error = true,
                 Message = Messages.BadRequest,
             };
@@ -41,7 +41,7 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
             return new()
             {
                 Error = false,
-                StatusCode = 200,
+                Status = 200,
                 Message = Messages.Updated,
                 Data = null
             };
@@ -51,14 +51,11 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
         {
             return new()
             {
-                StatusCode = 500,
+                Status = 500,
                 Error = true,
                 Data = null,
                 Message = Messages.Error + ex
             };
         }
     }
-
-
-
 }
