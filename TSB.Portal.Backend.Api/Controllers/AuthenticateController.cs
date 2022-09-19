@@ -23,7 +23,6 @@ public class AuthenticateController : ControllerBase
     public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
         var result = this.authenticate.Handle(authenticate);
-        
     	return new ObjectResult(result).SetStatus(result.Status);
     }
 
@@ -31,11 +30,7 @@ public class AuthenticateController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
     public ObjectResult ValidateJwtToken()
     {
-        var result = this.validateJwtToken.Handle(new ()
-        {
-            Token = Request.Headers["Authorization"]
-        });
-
+        var result = this.validateJwtToken.Handle(new (Request.Headers["Authorization"]));
         return new ObjectResult(result).SetStatus(result.Status);
     }
 }
