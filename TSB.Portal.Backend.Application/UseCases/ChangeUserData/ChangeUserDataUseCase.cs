@@ -86,17 +86,6 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 		}
 	}
 
-	private DefaultResponse<ChangeUserDataOutput> GetInvalidOperation()
-	{
-		return new()
-		{
-			Status = 404,
-			Error = true,
-			Data = null,
-			Message = Messages.InvalidOperation
-		};
-	}
-
 	private DefaultResponse<ChangeUserDataOutput> GetUpdatedOk(ChangeUserDataOutput data)
 	{
 		return new()
@@ -105,6 +94,28 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 			Status = 200,
 			Message = Messages.Updated,
 			Data = data
+		};
+	}
+    
+    private DefaultResponse<ChangeUserDataOutput> GetInvalidOperation()
+	{
+		return new()
+		{
+			Status = 400,
+			Error = true,
+			Data = null,
+			Message = Messages.InvalidOperation
+		};
+	}
+
+    private DefaultResponse<ChangeUserDataOutput> GetUserNotFoundError()
+	{
+		return new()
+		{
+			Status = 404,
+			Error = true,
+			Data = null,
+			Message = Messages.UserNotFound
 		};
 	}
 
@@ -116,17 +127,6 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 			Error = true,
 			Data = null,
 			Message = Messages.Error + ex
-		};
-	}
-
-	private DefaultResponse<ChangeUserDataOutput> GetUserNotFoundError()
-	{
-		return new()
-		{
-			Status = 404,
-			Error = true,
-			Data = null,
-			Message = Messages.UserNotFound
 		};
 	}
 }
