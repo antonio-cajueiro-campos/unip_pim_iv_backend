@@ -20,6 +20,8 @@ public class AuthenticateController : ControllerBase
 
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<AuthenticateOutput>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<AuthenticateOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<AuthenticateOutput>))]
     public IActionResult Login([FromBody] AuthenticateInput authenticate)
     {
         var result = this.authenticate.Handle(authenticate);
@@ -28,6 +30,8 @@ public class AuthenticateController : ControllerBase
 
     [HttpPost("validate")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
     public ObjectResult ValidateJwtToken()
     {
         var result = this.validateJwtToken.Handle(new (Request.Headers["Authorization"]));
