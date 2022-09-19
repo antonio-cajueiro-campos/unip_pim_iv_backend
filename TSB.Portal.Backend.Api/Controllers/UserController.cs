@@ -60,6 +60,9 @@ public class UserController : ControllerBase
 
     [HttpPost("infos")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
     public IActionResult ChangeUserData([FromBody] ChangeUserDataInput changeUserData)
     {
         changeUserData.ClaimsPrincipal = HttpContext.User;
