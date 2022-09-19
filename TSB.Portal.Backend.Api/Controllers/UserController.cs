@@ -33,7 +33,6 @@ public class UserController : ControllerBase
     public IActionResult UserRegister([FromBody] UserRegisterInput userRegister)
     {
         var result = this.userRegister.Handle(userRegister);
-
     	return new ObjectResult(result).SetStatus(result.Status);
     }
 
@@ -44,11 +43,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfos()
     {
-        var result = this.getUserInfos.Handle(new ()
-        {
-            ClaimsPrincipal = HttpContext.User
-        });
-
+        var result = this.getUserInfos.Handle(new (HttpContext.User));
     	return new ObjectResult(result).SetStatus(result.Status);
     }
 
@@ -59,11 +54,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfosById(long id)
     {
-        var result = this.getUserInfos.Handle(new ()
-        {
-            Id = id
-        });
-        
+        var result = this.getUserInfos.Handle(new (id));
     	return new ObjectResult(result).SetStatus(result.Status);
     }
 
