@@ -2,12 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
 using TSB.Portal.Backend.CrossCutting.Enums;
 using TSB.Portal.Backend.CrossCutting.Validation;
-using TSB.Portal.Backend.Infra.Repository.Entities;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterInput {
 	
-	[Required(ErrorMessage = "Preencha o campo Username.")]
+	[Required(ErrorMessage = "Preencha o campo Usuário.")]
 	public string Username { get; set; }
 	
 	[Required(ErrorMessage = "Preencha o campo Senha.")]
