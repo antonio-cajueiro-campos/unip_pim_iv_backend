@@ -25,22 +25,22 @@ public static class ObjectMapper
 		return objTo;
 	}
 
-	public static TResult MapObjectToIfNotNull<TSource, TResult>(this TSource objFrom, TResult objTo)
+	public static TResult MapObjectToIfNotNull<TSource, TResult>(this TSource NovosDados, TResult DadosAntigos)
 	{
 
-		PropertyInfo[] ToProperties = objTo.GetType().GetProperties();
-		PropertyInfo[] FromProperties = objFrom.GetType().GetProperties();
+		PropertyInfo[] PropsAntigas = DadosAntigos.GetType().GetProperties();
+		PropertyInfo[] PropsNovas = NovosDados.GetType().GetProperties();
 
-		ToProperties.ToList().ForEach(objToProp =>
+		PropsAntigas.ToList().ForEach(propAntiga =>
 		{
-			PropertyInfo FromProp = FromProperties.FirstOrDefault(objFromProp =>
-				objFromProp.Name == objToProp.Name && objFromProp.PropertyType == objToProp.PropertyType
+			PropertyInfo novaProp = PropsNovas.FirstOrDefault(objFromProp =>
+				objFromProp.Name == propAntiga.Name && objFromProp.PropertyType == propAntiga.PropertyType
 			);
 
-			if (FromProp != null) objToProp.SetValue(objTo, FromProp.GetValue(objFrom));
+			if (novaProp != null && novaProp.GetValue(NovosDados) != null) propAntiga.SetValue(DadosAntigos, novaProp.GetValue(NovosDados));
 
 		});
-		return objTo;
+		return DadosAntigos;
 	}
 
 	public static dynamic MapObjectToDynamic(this object value)

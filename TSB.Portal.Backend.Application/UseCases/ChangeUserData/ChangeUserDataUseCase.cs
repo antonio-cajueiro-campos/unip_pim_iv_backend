@@ -5,6 +5,7 @@ using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.CrossCutting.Extensions;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.Infra.Repository.Entities;
+using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
 
 namespace TSB.Portal.Backend.Application.UseCases.ChangeUserData;
 public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput>
@@ -26,7 +27,7 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 			var UserRole = changeUserData.ClaimsPrincipal.GetUserRole();
 
 			var user = this.database.Users.Include(c => c.Credential).First(c => c.Id == userId);
-			user = changeUserData.MapObjectTo(user);
+			user = changeUserData.MapObjectToIfNotNull(user);
 
             if (changeUserData.Password != null) {
                 user.Credential.Password = BCryptNet.HashPassword(changeUserData.Password);
@@ -38,11 +39,13 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 
             var dataOutput = user.MapObjectTo(new ChangeUserDataOutput());
 
+            dataOutput.Credential = user.Credential.MapObjectTo(new CredentialDTO());
+
 			switch (UserRole)
 			{
 				case "Funcionario":
 					var funcionario = this.database.Funcionarios.Include(c => c.User).First(c => c.User.Id == userId);
-					funcionario = changeUserData.MapObjectTo(funcionario);
+					funcionario = changeUserData.MapObjectToIfNotNull(funcionario);
 					database.Funcionarios.Update(funcionario);
                     database.SaveChanges();
                     database.Entry(funcionario).GetDatabaseValues();
@@ -51,12 +54,13 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 
 				case "Cliente":
 					var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).First(c => c.User.Id == userId);
-					cliente = changeUserData.MapObjectTo(cliente);
-					cliente.Endereco = changeUserData.MapObjectTo(cliente.Endereco);
+					cliente = changeUserData.MapObjectToIfNotNull(cliente);
+					cliente.Endereco = changeUserData.MapObjectToIfNotNull(cliente.Endereco);
 					database.Clientes.Update(cliente);
 			        database.SaveChanges();
                     database.Entry(cliente).GetDatabaseValues();
                     dataOutput = cliente.MapObjectTo(dataOutput);
+                    dataOutput.Endereco = cliente.Endereco.MapObjectTo(new EnderecoDTO());
 					break;
 			}
 
