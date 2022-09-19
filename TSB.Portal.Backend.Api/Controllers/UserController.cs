@@ -19,8 +19,7 @@ public class UserController : ControllerBase
         IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister, 
         IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos,
         IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData
-        )
-    {
+    ) {
         this.userRegister = userRegister;
         this.getUserInfos = getUserInfos;
         this.changeUserData = changeUserData;
