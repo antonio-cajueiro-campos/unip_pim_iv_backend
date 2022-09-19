@@ -27,7 +27,9 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<UserRegisterOutput>))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DefaultResponse<UserRegisterOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<UserRegisterOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<UserRegisterOutput>))]
     public IActionResult UserRegister([FromBody] UserRegisterInput userRegister)
     {
         var result = this.userRegister.Handle(userRegister);
@@ -37,6 +39,9 @@ public class UserController : ControllerBase
 
     [HttpGet("infos")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfos()
     {
         var result = this.getUserInfos.Handle(new ()
@@ -49,6 +54,9 @@ public class UserController : ControllerBase
 
     [HttpGet("infos/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     public IActionResult GetUserInfosById(long id)
     {
         var result = this.getUserInfos.Handle(new ()
@@ -63,13 +71,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
     public IActionResult ChangeUserData([FromBody] ChangeUserDataInput changeUserData)
     {
-        var result = this.changeUserData.Handle(new ()
-        {
-            ClaimsPrincipal = HttpContext.User,
-            User = changeUserData.User,
-            Funcionario = changeUserData.Funcionario,
-            Cliente = changeUserData.Cliente,
-        } );
+        changeUserData.ClaimsPrincipal = HttpContext.User;
+        var result = this.changeUserData.Handle(changeUserData);
+
         return new ObjectResult(result).SetStatus(result.Status);
     }
 }

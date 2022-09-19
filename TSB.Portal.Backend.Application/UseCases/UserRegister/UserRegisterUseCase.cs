@@ -6,6 +6,7 @@ using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
 using System.Text.RegularExpressions;
+using TSB.Portal.Backend.CrossCutting.Enums;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
@@ -41,16 +42,31 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 					Data = null
 				};
 
-			var credential = userRegisterInput.MapObjectTo(new Credential());
-			credential.Password = BCryptNet.HashPassword(credential.Password);
-			credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : "Cliente";
-
 			var user = userRegisterInput.MapObjectTo(new User());
-			user.Credential = credential;
+			user.Credential = userRegisterInput.MapObjectTo(new Credential());
 			user.RegistrationDate = DateTime.Now;
+
+			user.Credential.Password = BCryptNet.HashPassword(user.Credential.Password);
+			user.Credential.Role = userRegisterInput.Role != null ? userRegisterInput.Role.ToString() : Roles.Cliente.ToString();
 
 			this.database.Users.Add(user);
 			this.database.SaveChanges();
+			
+			database.Entry(user).GetDatabaseValues();
+
+			if (user.Credential.Role == "Cliente") {
+				var cliente = userRegisterInput.MapObjectTo(new Cliente());
+				cliente.User = user;
+				cliente.Endereco = userRegisterInput.Endereco.MapObjectTo(new Endereco());
+				this.database.Clientes.Add(cliente);
+				this.database.SaveChanges();
+
+			} else if (user.Credential.Role == "Funcionario") {
+				var funcionario = userRegisterInput.MapObjectTo(new Funcionario());
+				funcionario.User = user;
+				this.database.Funcionarios.Add(funcionario);
+				this.database.SaveChanges();
+			}
 
 			var authenticateResponse = authenticateUseCase.Handle(
 				userRegisterInput.MapObjectTo(new AuthenticateInput())

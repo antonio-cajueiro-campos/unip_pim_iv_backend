@@ -30,6 +30,9 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
+                    b.Property<long?>("ClienteId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("CoberturaId")
                         .HasColumnType("bigint");
 
@@ -40,6 +43,8 @@ namespace TSB.Portal.Backend.Infra.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("CoberturaId");
 
@@ -54,9 +59,6 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<long?>("ApoliceId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("ChavePIX")
                         .HasColumnType("nvarchar(max)");
 
@@ -66,11 +68,14 @@ namespace TSB.Portal.Backend.Infra.Migrations
                     b.Property<string>("Telefone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApoliceId");
-
                     b.HasIndex("EnderecoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Clientes");
                 });
@@ -163,7 +168,12 @@ namespace TSB.Portal.Backend.Infra.Migrations
                     b.Property<string>("Cargo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Funcionarios");
                 });
@@ -182,7 +192,7 @@ namespace TSB.Portal.Backend.Infra.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IDNotaFiscal")
+                    b.Property<string>("IdPagamento")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -269,26 +279,32 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
             modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.Apolice", b =>
                 {
+                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
                     b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Cobertura", "Cobertura")
                         .WithMany()
                         .HasForeignKey("CoberturaId");
+
+                    b.Navigation("Cliente");
 
                     b.Navigation("Cobertura");
                 });
 
             modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.Cliente", b =>
                 {
-                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Apolice", "Apolice")
-                        .WithMany()
-                        .HasForeignKey("ApoliceId");
-
                     b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId");
 
-                    b.Navigation("Apolice");
+                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Endereco");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.Cobertura", b =>
@@ -298,6 +314,15 @@ namespace TSB.Portal.Backend.Infra.Migrations
                         .HasForeignKey("SinistroId");
 
                     b.Navigation("Sinistro");
+                });
+
+            modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.Funcionario", b =>
+                {
+                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.HistoricoPagamento", b =>
@@ -311,7 +336,7 @@ namespace TSB.Portal.Backend.Infra.Migrations
 
             modelBuilder.Entity("TSB.Portal.Backend.Infra.Repository.Entities.HistoricoSinistro", b =>
                 {
-                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.User", "Cliente")
+                    b.HasOne("TSB.Portal.Backend.Infra.Repository.Entities.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId");
 

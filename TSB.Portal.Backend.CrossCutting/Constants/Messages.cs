@@ -14,7 +14,7 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		public const string Error = "Oops! Algo deu errado e foi gerado o seguinte erro no servidor: ";
 		public const string Unauthorized = "Não autorizado.";
 		public const string UserNotFound = "Usuário não encontrado.";
-		public static string UsernameAlreadyTaken(string username) => $"Username {username} já está em uso.";
+		public static string UsernameAlreadyTaken(string username) => $"Usuário {username} já está em uso.";
 		public static string DocumentAlreadyTaken(string document) => $"Documento {document} já está em uso.";
     }
 }

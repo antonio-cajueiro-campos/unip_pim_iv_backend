@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.CrossCutting.Extensions;
@@ -22,7 +23,7 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 
 	private DefaultResponse<GetUserInfosOutput> GetUserInfos(GetUserInfosInput userInfosInput)
 	{
-		if (userInfosInput.Id == null && userInfosInput.ClaimsPrincipal == null)
+		if (userInfosInput.Id == null && !userInfosInput.ClaimsPrincipal.HasClaim((e) => true))
 		{
 			return new()
 			{
@@ -36,26 +37,24 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 		try
 		{
 			var userId = userInfosInput.Id ?? userInfosInput.ClaimsPrincipal.GetUserId();
-			
 			var user = this.database.Users.Include(c => c.Credential).First(c => c.Id == userId);
+			var userData = new GetUserInfosOutput();
 
-			if (user == null)
-			{
-				return new()
-				{
-					Status = 404,
-					Error = true,
-					Data = null,
-					Message = Messages.UserNotFound
-				};
-			}
-
-			var userData = user.MapObjectTo(new GetUserInfosOutput());
-
-			userData.Credential = user.Credential.MapObjectToDynamic();		
-
-			((IDictionary<String, Object>)userData.Credential).Remove("Password");
-			((IDictionary<String, Object>)userData.Credential).Remove("Id");
+			switch (user.Credential.Role) {
+                case "Funcionario":
+				var funcionario = this.database.Funcionarios.Include(c => c.User).First(c => c.User.Id == userId);
+				userData.Funcionario = funcionario.MapObjectTo(new FuncionarioDTO());
+				userData.Funcionario.User = funcionario.User.MapObjectTo(new UserDTO());
+				userData.Funcionario.User.Credential = funcionario.User.Credential.MapObjectTo(new CredentialDTO());
+                break;
+                case "Cliente":
+				var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).First(c => c.User.Id == userId);
+				userData.Cliente = cliente.MapObjectTo(new ClienteDTO());
+				userData.Cliente.User = cliente.User.MapObjectTo(new UserDTO());
+				userData.Cliente.User.Credential = cliente.User.Credential.MapObjectTo(new CredentialDTO());
+				userData.Cliente.Endereco = cliente.Endereco.MapObjectTo(new EnderecoDTO());
+                break;
+            }
 
 			return new()
 			{
@@ -63,6 +62,16 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 				Error = false,
 				Data = userData,
 				Message = Messages.Success
+			};
+		}
+		catch (InvalidOperationException)
+		{
+			return new()
+			{
+				Status = 404,
+				Error = true,
+				Data = null,
+				Message = Messages.UserNotFound
 			};
 		}
 		catch (Exception ex)

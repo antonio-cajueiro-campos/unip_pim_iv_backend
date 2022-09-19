@@ -20,7 +20,6 @@ public class DataContext : DbContext, IDataContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-		System.Console.WriteLine(options.IsConfigured);
         if (!options.IsConfigured)
         {
 			options.AddDefaultConnection();

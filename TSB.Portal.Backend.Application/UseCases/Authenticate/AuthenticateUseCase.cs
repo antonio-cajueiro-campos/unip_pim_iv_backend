@@ -11,6 +11,7 @@ using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 using TSB.Portal.Backend.CrossCutting.Extensions;
+using TSB.Portal.Backend.CrossCutting.Enums;
 
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, AuthenticateInput>

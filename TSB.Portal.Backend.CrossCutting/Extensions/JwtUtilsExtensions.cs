@@ -13,6 +13,11 @@ namespace TSB.Portal.Backend.CrossCutting.Extensions
             return long.Parse(user.Claims.First(c => c.Type.Equals("Id")).Value);
         }
 
+		public static string GetUserRole(this ClaimsPrincipal user)
+        {
+            return user.Claims.First(c => c.Type == ClaimTypes.Role).Value;
+        }
+
 		public static bool HasRole(this ClaimsPrincipal user, string role)
         {
             Claim userClaim = user.Claims.First(c => c.Type == ClaimTypes.Role);

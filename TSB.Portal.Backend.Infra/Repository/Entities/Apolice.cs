@@ -6,6 +6,7 @@ public class Apolice
     [Key]
     public long Id { get; set; }
     public Cobertura Cobertura { get; set; }
+    public Cliente Cliente { get; set; }
     public DateTime Vigencia { get; set; }
     public DateTime Emissao { get; set; }
 }

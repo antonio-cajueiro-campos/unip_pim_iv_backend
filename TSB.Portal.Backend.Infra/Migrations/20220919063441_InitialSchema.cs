@@ -44,19 +44,6 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Funcionarios",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cargo = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Funcionarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sinistros",
                 columns: table => new
                 {
@@ -111,6 +98,77 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
+                    EnderecoId = table.Column<long>(type: "bigint", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChavePIX = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clientes_Enderecos_EnderecoId",
+                        column: x => x.EnderecoId,
+                        principalTable: "Enderecos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clientes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Funcionarios",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
+                    Cargo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funcionarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Funcionarios_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Apolices",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CoberturaId = table.Column<long>(type: "bigint", nullable: true),
+                    ClienteId = table.Column<long>(type: "bigint", nullable: true),
+                    Vigencia = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Emissao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apolices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Apolices_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Apolices_Coberturas_CoberturaId",
+                        column: x => x.CoberturaId,
+                        principalTable: "Coberturas",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HistoricoSinistros",
                 columns: table => new
                 {
@@ -125,60 +183,14 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 {
                     table.PrimaryKey("PK_HistoricoSinistros", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_HistoricoSinistros_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_HistoricoSinistros_Sinistros_SinistroId",
                         column: x => x.SinistroId,
                         principalTable: "Sinistros",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_HistoricoSinistros_Users_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Apolices",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CoberturaId = table.Column<long>(type: "bigint", nullable: true),
-                    Vigencia = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Emissao = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Apolices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Apolices_Coberturas_CoberturaId",
-                        column: x => x.CoberturaId,
-                        principalTable: "Coberturas",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clientes",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnderecoId = table.Column<long>(type: "bigint", nullable: true),
-                    ApoliceId = table.Column<long>(type: "bigint", nullable: true),
-                    ChavePIX = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clientes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clientes_Apolices_ApoliceId",
-                        column: x => x.ApoliceId,
-                        principalTable: "Apolices",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Clientes_Enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
-                        principalTable: "Enderecos",
                         principalColumn: "Id");
                 });
 
@@ -189,7 +201,7 @@ namespace TSB.Portal.Backend.Infra.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApoliceId = table.Column<long>(type: "bigint", nullable: true),
-                    IDNotaFiscal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdPagamento = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -203,14 +215,14 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Apolices_ClienteId",
+                table: "Apolices",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Apolices_CoberturaId",
                 table: "Apolices",
                 column: "CoberturaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clientes_ApoliceId",
-                table: "Clientes",
-                column: "ApoliceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clientes_EnderecoId",
@@ -218,9 +230,19 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 column: "EnderecoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clientes_UserId",
+                table: "Clientes",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Coberturas_SinistroId",
                 table: "Coberturas",
                 column: "SinistroId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Funcionarios_UserId",
+                table: "Funcionarios",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HistoricoPagamentos_ApoliceId",
@@ -246,9 +268,6 @@ namespace TSB.Portal.Backend.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
                 name: "Funcionarios");
 
             migrationBuilder.DropTable(
@@ -258,22 +277,25 @@ namespace TSB.Portal.Backend.Infra.Migrations
                 name: "HistoricoSinistros");
 
             migrationBuilder.DropTable(
-                name: "Enderecos");
-
-            migrationBuilder.DropTable(
                 name: "Apolices");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Coberturas");
 
             migrationBuilder.DropTable(
-                name: "Credentials");
+                name: "Enderecos");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Sinistros");
+
+            migrationBuilder.DropTable(
+                name: "Credentials");
         }
     }
 }
