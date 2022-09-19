@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.Authenticate;
@@ -19,6 +20,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("login")]
+    [SwaggerOperation("Autenticação do usuário")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<AuthenticateOutput>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<AuthenticateOutput>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<AuthenticateOutput>))]
@@ -29,6 +31,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [HttpPost("validate")]
+    [SwaggerOperation("Valida o Bearer JWT enviado pelo header")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<ValidateJwtTokenOutput>))]

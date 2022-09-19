@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.ChangeUserData;
@@ -26,6 +27,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
+    [SwaggerOperation("Registra usuário no sistema")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DefaultResponse<UserRegisterOutput>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<UserRegisterOutput>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<UserRegisterOutput>))]
@@ -36,6 +38,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("infos")]
+    [SwaggerOperation("Obtém as informações do usuário registrado e autenticado no sistema")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
@@ -47,6 +50,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("infos/{id}")]
+    [SwaggerOperation("Obtém as informações do usuário registrado no sistema pelo ID")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<GetUserInfosOutput>))]
@@ -58,6 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("infos")]
+    [SwaggerOperation("Atualiza as informações do usuário registrado e autenticado no sistema")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<ChangeUserDataOutput>))]
