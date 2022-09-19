@@ -3,6 +3,7 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 {
     public static class Messages
     {
+		// Requests messages
 		public const string Created = "Criado com sucesso!";
 		public const string Deleted = "Apagado com sucesso!";
 		public const string Updated = "Atualizado com sucesso!";
@@ -17,5 +18,11 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		public const string UserNotFound = "Usuário não encontrado.";
 		public static string UsernameAlreadyTaken(string username) => $"Usuário {username} já está em uso.";
 		public static string DocumentAlreadyTaken(string document) => $"Documento {document} já está em uso.";
+
+		// Fields messages
+		public const string RequiredUsername = "Preencha o campo Usuário.";
+		public const string RequiredPassword = "Preencha o campo Senha.";
+		public const string RequiredName = "Preencha o campo Nome.";
+		public const string RequiredDocument = "Preencha o campo Documento.";
     }
 }
