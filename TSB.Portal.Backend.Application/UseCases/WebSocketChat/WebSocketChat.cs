@@ -10,10 +10,11 @@ public class WebSocketChat : Hub
 		if (Messages == null)
 		Messages = new List<Message>();
 	}
-	public void NewMessage(string text, string username)
+	public void NewMessage(string text, string username, long userId)
 	{
-		Clients.All.SendAsync("newMessage", text, username);
+		Clients.All.SendAsync("newMessage", text, username, userId);
 		Messages.Add(new () {
+			UserId = userId,
 			Text = text,
 			UserName = username
 		});
@@ -28,6 +29,7 @@ public class WebSocketChat : Hub
 
 public class Message
 {
-	public string UserName {get; set;}
-	public string Text {get; set;}
+	public long UserId { get; set; }
+	public string UserName { get; set; }
+	public string Text { get; set; }
 }

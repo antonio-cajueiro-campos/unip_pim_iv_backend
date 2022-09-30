@@ -36,7 +36,7 @@ builder.Services.AddDataContext(configuration).AddDbServices();
 builder.Services.AddControllersWithViews()
 	.AddJsonOptions(options =>
 		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
-    );
+	);
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -84,37 +84,28 @@ builder.Services.AddCors(c =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
-
-	app.UseCors(x => x
-		.AllowAnyMethod().AllowAnyHeader()
-		.SetIsOriginAllowed(origin => true)
-		.AllowCredentials()
-	);
-}
-else
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-	
 	app.UseHttpsRedirection();
-	app.UseCors(x => x
-		.AllowAnyMethod().AllowAnyHeader()
-		.SetIsOriginAllowed(origin => true)
-		.AllowCredentials()
-	);
 }
 
-app.UseAuthentication();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors(x => x
+	.AllowAnyMethod().AllowAnyHeader()
+	.SetIsOriginAllowed(origin => true)
+	.AllowCredentials()
+);
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints => {
+app.UseEndpoints(endpoints =>
+{
 	endpoints.MapHub<WebSocketChat>("/websocketchat");
 	endpoints.MapControllers();
 });
