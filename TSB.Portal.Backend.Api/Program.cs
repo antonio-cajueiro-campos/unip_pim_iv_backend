@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 using TSB.Portal.Backend.Application.Extensions;
+using TSB.Portal.Backend.Application.UseCases.WebSocketChat;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -28,6 +29,7 @@ builder.Services.AddControllers();
 
 // Dependecy Injection
 builder.Services.AddDependecies();
+builder.Services.AddSignalR();
 
 builder.Services.AddDataContext(configuration).AddDbServices();
 
@@ -86,6 +88,12 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
+
+	app.UseCors(x => x
+		.AllowAnyMethod().AllowAnyHeader()
+		.SetIsOriginAllowed(origin => true)
+		.AllowCredentials()
+	);
 }
 else
 {
@@ -102,8 +110,13 @@ else
 
 app.UseAuthentication();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints => {
+	endpoints.MapHub<WebSocketChat>("/websocketchat");
+	endpoints.MapControllers();
+});
 
 app.Run();
