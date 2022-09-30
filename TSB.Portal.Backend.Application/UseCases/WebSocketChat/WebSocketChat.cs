@@ -4,32 +4,41 @@ using Microsoft.AspNetCore.SignalR;
 namespace TSB.Portal.Backend.Application.UseCases.WebSocketChat;
 public class WebSocketChat : Hub
 {
-	private static List<Message> Messages;
+	private static List<Message> MessagesList;
 	public WebSocketChat()
 	{
-		if (Messages == null)
-		Messages = new List<Message>();
+		if (MessagesList == null)
+		MessagesList = new List<Message>();
 	}
 	public void NewMessage(string text, string username, long userId)
 	{
-		Clients.All.SendAsync("newMessage", text, username, userId);
-		Messages.Add(new () {
+		var timestamp = DateTime.Now;
+
+		Clients.All.SendAsync("newMessage", text, username, userId, timestamp);
+		MessagesList.Add(new () {
 			UserId = userId,
 			Text = text,
+			Timestamp = timestamp,
 			UserName = username
 		});
 	}
 
 	public void NewUser(string username, string connectionId)
 	{
-		Clients.Client(connectionId).SendAsync("previousMessages", Messages);
+		Clients.Client(connectionId).SendAsync("previousMessages", MessagesList);
 		Clients.All.SendAsync("newUser", username);
+	}
+
+	public void IsWriting(string username)
+	{
+		Clients.All.SendAsync("isWriting", username);
 	}
 }
 
 public class Message
 {
 	public long UserId { get; set; }
+	public DateTime Timestamp { get; set; }
 	public string UserName { get; set; }
 	public string Text { get; set; }
 }
