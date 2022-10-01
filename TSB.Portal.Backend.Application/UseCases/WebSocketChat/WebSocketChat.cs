@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.SignalR;
 
 namespace TSB.Portal.Backend.Application.UseCases.WebSocketChat;
