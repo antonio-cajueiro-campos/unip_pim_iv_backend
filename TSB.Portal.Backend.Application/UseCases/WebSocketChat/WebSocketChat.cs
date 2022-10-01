@@ -29,9 +29,14 @@ public class WebSocketChat : Hub
 		Clients.All.SendAsync("newUser", username);
 	}
 
-	public void IsWriting(string username, long userId)
+	public void MeIsWriting(string username)
 	{
-		Clients.All.SendAsync("isWriting", username, userId);
+		Clients.All.SendAsync("meIsWriting", username);
+	}
+
+	public void OtherIsWriting(string username)
+	{
+		Clients.All.SendAsync("otherIsWriting", username);
 	}
 }
 
