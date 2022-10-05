@@ -39,7 +39,7 @@ public class WebSocketChat : Hub
 
 		var userDb = this.database.Users.Find(userId);
 
-		var user = new UserHub()
+		var newUser = new UserHub()
 		{
 			UserId = userId,
 			UserName = userDb.Name,
@@ -50,28 +50,29 @@ public class WebSocketChat : Hub
 		// adiciona usuario a lista de usuarios no HUB
 		if (!UserHubList.Any(uh => uh.UserId == userId))
 		{
-			UserHubList.Add(user);
+			UserHubList.Add(newUser);
 		}
 		else
 		{
-			var oldUser = UserHubList.FirstOrDefault(uh => uh.UserId == userId);
-			UserHubList.Remove(oldUser);
-			UserHubList.Add(user);
+			var oldUserHub = UserHubList.FirstOrDefault(uh => uh.UserId == userId);
+			UserHubList.Remove(oldUserHub);
+			UserHubList.Add(newUser);
 
 			if (ChatList.Any(c => c.UserList.Any(u => u.UserId == userId)))
 			{
 				var chat = ChatList.FirstOrDefault(c => c.UserList.Any(u => u.UserId == userId));
-				var cliente = chat.UserList.First(u => u.UserId == userId);
+				var oldUserChat = chat.UserList.First(u => u.UserId == userId);
 
-				chat.UserList.Remove(cliente);
-				chat.UserList.Add(user);
+				chat.UserList.Remove(oldUserChat);
+
+				chat.UserList.Add(newUser);
 			}
 		}
 
 		return base.OnConnectedAsync();
 	}
 
-	// Init Fluxo do Cliente
+	// Init Fluxo do Cliente Chat Service
 	public void CreateChat(long userId)
 	{
 		var userHub = UserHubList.FirstOrDefault(u => u.UserId == userId);
@@ -128,6 +129,74 @@ public class WebSocketChat : Hub
 		}
 	}
 
+	// Init Fluxo do Cliente Chat Sinistro
+	public void CreateChatSinistro(long userId)
+	{
+		var userHub = UserHubList.FirstOrDefault(u => u.UserId == userId);
+		if (userHub != null)
+		{
+			var role = userHub.Role;
+			var connectionId = userHub.UserConnectionId;
+
+			// se for um cliente e nao tiver um chat com ele dentro
+			if (!ChatList.Any(c => c.UserList.Any(u => u.UserId == userId)) && role == "Cliente")
+			{
+				// cria um chat
+				var chat = new Chat()
+				{
+					ChatId = userId,
+					MessagesList = new List<Message>(),
+					UserList = new List<UserHub>()
+				};
+
+				// coloca uma msg inicial de chat
+				chat.MessagesList.Add(
+					new()
+					{
+						UserId = 0,
+						Timestamp = DateTime.Now,
+						UserName = "System",
+						Text = "Novo canal de comunicação iniciado",
+						Type = ChatMessageTypes.Announcement.ToString()
+					}
+				);
+
+				chat.MessagesList.Add(
+					new()
+					{
+						UserId = 0,
+						Timestamp = DateTime.Now,
+						UserName = "System",
+						Text = "O seguinte sinistro ocorreu em {endereço}, solicita a ativação do meu seguro.",
+						Type = ChatMessageTypes.Message.ToString()
+					}
+				);
+
+				chat.UserList.Add(userHub);
+
+				ChatList.Add(chat);
+
+				Clients.Client(connectionId).SendAsync("previousMessages", chat.MessagesList);
+
+				var FuncionarioList = UserHubList.Where(u => u.Role == "Funcionario");
+				foreach (UserHub Func in FuncionarioList)
+				{
+					Clients.Client(Func.UserConnectionId).SendAsync("updateChatList", ChatList);
+				}
+			}
+			// Se for cliente e já existir chat com o ID dele
+			else if (role == "Cliente")
+			{
+				Chat chat = ChatList.FirstOrDefault(c => c.UserList.Any(u => u.UserId == userId));
+
+				if (chat != null)
+				{
+					Clients.Client(connectionId).SendAsync("previousMessages", chat.MessagesList);
+				}
+			}
+		}
+	}
+
 
 	// Init Fluxo do funcionario
 	public void InitFuncionario(long userId)
@@ -142,7 +211,7 @@ public class WebSocketChat : Hub
 			// se for um funcionario e nao tiver um chat com ele dentro, retorna a lista de chats
 			if (!ChatList.Any(c => c.UserList.Any(u => u.UserId == userId)) && role == "Funcionario")
 			{
-				Clients.All.SendAsync("initFuncionario", ChatList);
+				Clients.Client(connectionId).SendAsync("initFuncionario", ChatList, 0);
 			}
 			// se for um funcionario e tiver um chat com ele dentro, manda as msgs
 			else if (role == "Funcionario")
@@ -151,6 +220,7 @@ public class WebSocketChat : Hub
 
 				if (chat != null)
 				{
+					Clients.Client(connectionId).SendAsync("initFuncionario", ChatList, chat.ChatId);
 					Clients.Client(connectionId).SendAsync("previousMessages", chat.MessagesList);
 				}
 			}
@@ -195,6 +265,29 @@ public class WebSocketChat : Hub
 			else
 			{
 				Clients.Client(userHub.UserConnectionId).SendAsync("chatNotFound");
+			}
+		}
+	}
+
+	public void LeaveSession(long userId, long chatId)
+	{
+		var chat = ChatList.FirstOrDefault(c => c.ChatId == chatId);
+		if (chat != null)
+		{
+			var user = chat.UserList.FirstOrDefault(u => u.UserId == userId);
+			if (user != null)
+			{
+				var newUserMessage = new Message()
+				{
+					UserId = userId,
+					Timestamp = DateTime.Now,
+					UserName = user.UserName,
+					Text = user.UserName + " deixou o bate-papo.",
+					Type = ChatMessageTypes.Announcement.ToString()
+				};
+
+				chat.UserList.Remove(user);
+				NewMessage(newUserMessage, chat.ChatId);
 			}
 		}
 	}
