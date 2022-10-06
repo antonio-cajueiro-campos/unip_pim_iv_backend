@@ -13,6 +13,9 @@ public class UserRegisterInput {
 	[Required(ErrorMessage = Messages.RequiredPassword)]
 	public string Password { get; set; }
 
+	[Required(ErrorMessage = Messages.RequiredRepassword)]
+	public string Repassword { get; set; }
+
 	[Required(ErrorMessage = Messages.RequiredName)]
 	public string Name { get; set; }
 	

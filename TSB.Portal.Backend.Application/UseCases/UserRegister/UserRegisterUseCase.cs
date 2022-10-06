@@ -26,6 +26,14 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 		var username = userRegisterInput.Username = userRegisterInput.Username.Trim().ToLower();
 		var document = userRegisterInput.Document = Regex.Replace(userRegisterInput.Document, "[^0-9]", "", RegexOptions.IgnoreCase);
 		try {
+			if (userRegisterInput.Password != userRegisterInput.Repassword)
+				return new() {
+					Status = 400,
+					Error = true,
+					Message = Messages.PasswordsNotMatch,
+					Data = null
+				};
+				
 			if (this.database.Credentials.Any(x => x.Username == username))
 				return new() {
 					Status = 400,

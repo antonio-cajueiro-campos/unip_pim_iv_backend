@@ -22,6 +22,8 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		// Fields messages
 		public const string RequiredUsername = "Preencha o campo Usuário.";
 		public const string RequiredPassword = "Preencha o campo Senha.";
+		public const string RequiredRepassword = "Preencha o campo Repetir Senha.";
+		public const string PasswordsNotMatch = "As senhas não coincidem.";
 		public const string RequiredName = "Preencha o campo Nome.";
 		public const string RequiredDocument = "Preencha o campo Documento.";
     }
