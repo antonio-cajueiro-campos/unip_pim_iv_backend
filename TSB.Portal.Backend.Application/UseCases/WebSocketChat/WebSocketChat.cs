@@ -259,7 +259,8 @@ public class WebSocketChat : Hub
 				chat.UserList.Add(userHub);
 
 				NewMessage(newUserMessage, chat.ChatId);
-
+				
+				Clients.Client(userHub.UserConnectionId).SendAsync("connectToChat", chatId);
 				Clients.Client(userHub.UserConnectionId).SendAsync("previousMessages", chat.MessagesList);
 			}
 			else
