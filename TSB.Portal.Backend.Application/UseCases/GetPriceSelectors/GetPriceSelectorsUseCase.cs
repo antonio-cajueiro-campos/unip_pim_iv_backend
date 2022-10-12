@@ -94,32 +94,32 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 			new ()
 			{
 				Text = "R$ 1.000,00",
-				Value = 1.000M
+				Value = 1000M
 			},
 			new ()
 			{
 				Text = "R$ 5.000,00",
-				Value = 5.000M
+				Value = 5000M
 			},
 			new ()
 			{
 				Text = "R$ 10.000,00",
-				Value = 10.000M
+				Value = 10000M
 			},
 			new ()
 			{
 				Text = "R$ 25.000,00",
-				Value = 25.000M
+				Value = 25000M
 			},
 			new ()
 			{
 				Text = "R$ 50.000,00",
-				Value = 50.000M
+				Value = 50000M
 			},
 			new ()
 			{
 				Text = "R$ 100.000,00",
-				Value = 100.000M
+				Value = 100000M
 			},
 		};
 	}
