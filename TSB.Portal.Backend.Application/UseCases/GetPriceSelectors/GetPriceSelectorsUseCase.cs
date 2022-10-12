@@ -44,8 +44,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
@@ -55,8 +55,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
@@ -66,8 +66,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
@@ -77,8 +77,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
@@ -88,8 +88,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
@@ -99,8 +99,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Total = 0,
 				List = new () {
 					new () {
-						Value = "ABC",
-						Text = "DEF"
+						Text = "DEF",
+						Value = 10
 					}
 				}
 			},
