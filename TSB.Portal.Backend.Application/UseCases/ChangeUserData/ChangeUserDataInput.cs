@@ -13,7 +13,8 @@ public class ChangeUserDataInput
     public string Cargo { get; set; }
     public string ChavePIX { get; set; }
 	public string Username { get; set; }
-    public string Password { get; set; }
+    public string NewPassword { get; set; }
+    public string ReNewPassword { get; set; }
     public string CEP { get; set; }
 	public string Cidade { get; set; }
 	public string Estado { get; set; }

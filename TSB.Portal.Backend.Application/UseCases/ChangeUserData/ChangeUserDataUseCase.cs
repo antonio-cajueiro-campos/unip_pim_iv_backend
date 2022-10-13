@@ -6,6 +6,7 @@ using TSB.Portal.Backend.CrossCutting.Extensions;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
+using System.Text.RegularExpressions;
 
 namespace TSB.Portal.Backend.Application.UseCases.ChangeUserData;
 public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput>
@@ -21,20 +22,32 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 	}
 	private DefaultResponse<ChangeUserDataOutput> ChangeUserData(ChangeUserDataInput changeUserData)
 	{
-		try
-		{
+		var username = changeUserData.Username = changeUserData.Username.Trim().ToLower();
+		var document = changeUserData.Document = Regex.Replace(changeUserData.Document, "[^0-9]", "", RegexOptions.IgnoreCase);
+
+		try {
 			var userId = changeUserData.ClaimsPrincipal.GetUserId();
-			var UserRole = changeUserData.ClaimsPrincipal.GetUserRole();
+			var userRole = changeUserData.ClaimsPrincipal.GetUserRole();
 
 			var user = this.database.Users.Include(c => c.Credential).FirstOrDefault(c => c.Id == userId);
 
-			if (user == null) return this.GetUserNotFoundError();
+			if (user == null)
+				return GetUserNotFoundError();
 
 			user = changeUserData.MapObjectToIfNotNull(user);
+				
+			if (this.database.Credentials.Any(x => x.Username == username && x.Id != user.Id))
+				return GetUsernameAlreadyTakenError(username);
 
-			if (changeUserData.Password != null)
+			if (this.database.Users.Any(x => x.Document == document && x.Id != user.Id))
+				return GetDocumentAlreadyTakenError(document);
+
+			if (changeUserData.NewPassword != null || changeUserData.ReNewPassword != null)
 			{
-				user.Credential.Password = BCryptNet.HashPassword(changeUserData.Password);
+				if (changeUserData.NewPassword != changeUserData.ReNewPassword)
+				return GetPasswordsNotMatchError();
+
+				user.Credential.Password = BCryptNet.HashPassword(changeUserData.NewPassword);
 			}
 
 			database.Users.Update(user);
@@ -45,12 +58,13 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 
 			dataOutput.Credential = user.Credential.MapObjectTo(new CredentialDTO());
 
-			switch (UserRole)
+			switch (userRole)
 			{
 				case "Funcionario":
 					var funcionario = this.database.Funcionarios.Include(c => c.User).FirstOrDefault(c => c.User.Id == userId);
 
-					if (funcionario == null) return this.GetUserNotFoundError();
+					if (funcionario == null)
+						return GetUserNotFoundError();
 
 					funcionario = changeUserData.MapObjectToIfNotNull(funcionario);
 					database.Funcionarios.Update(funcionario);
@@ -62,7 +76,8 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 				case "Cliente":
 					var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).FirstOrDefault(c => c.User.Id == userId);
 
-					if (cliente == null) return this.GetUserNotFoundError();
+					if (cliente == null)
+						return GetUserNotFoundError();
 
 					cliente = changeUserData.MapObjectToIfNotNull(cliente);
 					cliente.Endereco = changeUserData.MapObjectToIfNotNull(cliente.Endereco);
@@ -84,6 +99,39 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 		{
 			return GetServerError(ex);
 		}
+	}
+
+	private DefaultResponse<ChangeUserDataOutput> GetPasswordsNotMatchError()
+	{
+		return new ()
+		{
+			Status = 400,
+			Error = true,
+			Message = Messages.PasswordsNotMatch,
+			Data = null
+		};
+	}
+
+	private DefaultResponse<ChangeUserDataOutput> GetUsernameAlreadyTakenError(string username)
+	{
+		return new ()
+		{
+			Status = 400,
+			Error = true,
+			Message = Messages.UsernameAlreadyTaken(username),
+			Data = null
+		};
+	}
+
+	private DefaultResponse<ChangeUserDataOutput> GetDocumentAlreadyTakenError(string document)
+	{
+		return new ()
+		{
+			Status = 400,
+			Error = true,
+			Message = Messages.DocumentAlreadyTaken(document),
+			Data = null
+		};
 	}
 
 	private DefaultResponse<ChangeUserDataOutput> GetUpdatedOk(ChangeUserDataOutput data)

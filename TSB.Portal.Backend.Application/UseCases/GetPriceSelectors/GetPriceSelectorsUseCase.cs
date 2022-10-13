@@ -19,15 +19,14 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 
 	private DefaultResponse<GetPriceSelectorsOutput> UserRegister(GetPriceSelectorsInput priceSelectorsInput)
 	{
-
 		try
 		{
-			return new()
+			return new ()
 			{
 				Status = 200,
 				Error = false,
 				Message = Messages.Success,
-				Data = new()
+				Data = new ()
 				{
 					PriceSelectorList = this.GetPriceSelectorList()
 				}
@@ -35,7 +34,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 		}
 		catch (Exception ex)
 		{
-			return new()
+			return new ()
 			{
 				Status = 500,
 				Error = true,
@@ -47,38 +46,45 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 
 	private List<PriceSelector> GetPriceSelectorList()
 	{
-		return new List<PriceSelector>(){
-			new () {
+		return new ()
+		{
+			new ()
+			{
 				Title = "Incêndio, raio e explosão",
 				Icon = "fire",
 				Total = 0,
 				List = GetListSelectorPrices()
 			},
-			new () {
+			new ()
+			{
 				Title = "Perda e pagamento de aluguel",
 				Icon = "building",
 				Total = 0,
 				List = GetListSelectorPrices()
 			},
-			new () {
+			new ()
+			{
 				Title = "Vendaval, granizo e ciclone",
 				Icon = "wind",
 				Total = 0,
 				List = GetListSelectorPrices()
 			},
-			new () {
+			new ()
+			{
 				Title = "Responsabilidade civil familiar",
 				Icon = "user-group",
 				Total = 0,
 				List = GetListSelectorPrices()
 			},
-			new () {
+			new ()
+			{
 				Title = "Danos elétricos",
 				Icon = "bolt",
 				Total = 0,
 				List = GetListSelectorPrices()
 			},
-			new () {
+			new ()
+			{
 				Title = "Roubo",
 				Icon = "shield",
 				Total = 0,
@@ -89,7 +95,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 
 	private List<Selector> GetListSelectorPrices()
 	{
-		return new List<Selector>()
+		return new ()
 		{
 			new ()
 			{
@@ -120,7 +126,8 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 			{
 				Text = "R$ 100.000,00",
 				Value = 100000M
-			},
+			}
 		};
 	}
 }
+// Server Driven UI
