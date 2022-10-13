@@ -14,10 +14,10 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 
 	public DefaultResponse<GetPriceSelectorsOutput> Handle(GetPriceSelectorsInput priceSelectorsInput)
 	{
-		return UserRegister(priceSelectorsInput);
+		return GetPriceSelectors(priceSelectorsInput);
 	}
 
-	private DefaultResponse<GetPriceSelectorsOutput> UserRegister(GetPriceSelectorsInput priceSelectorsInput)
+	private DefaultResponse<GetPriceSelectorsOutput> GetPriceSelectors(GetPriceSelectorsInput priceSelectorsInput)
 	{
 		try
 		{
