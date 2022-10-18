@@ -50,44 +50,56 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 		{
 			new ()
 			{
+				Id = "IRE",
 				Title = "Incêndio, raio e explosão",
 				Icon = "fire",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 26,
 				List = GetListSelectorPrices()
 			},
 			new ()
 			{
+				Id = "PP",
 				Title = "Perda e pagamento de aluguel",
 				Icon = "building",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 32,
 				List = GetListSelectorPrices()
 			},
 			new ()
 			{
+				Id = "VGC",
 				Title = "Vendaval, granizo e ciclone",
 				Icon = "wind",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 54,
 				List = GetListSelectorPrices()
 			},
 			new ()
 			{
+				Id = "RCF",
 				Title = "Responsabilidade civil familiar",
 				Icon = "user-group",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 41,
 				List = GetListSelectorPrices()
 			},
 			new ()
 			{
+				Id = "DE",
 				Title = "Danos elétricos",
 				Icon = "bolt",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 71,
 				List = GetListSelectorPrices()
 			},
 			new ()
 			{
+				Id = "RO",
 				Title = "Roubo",
 				Icon = "shield",
-				Total = 0,
+				MonthlyPayment = 1000M,
+				NumberOfMonths = 22,
 				List = GetListSelectorPrices()
 			},
 		};
