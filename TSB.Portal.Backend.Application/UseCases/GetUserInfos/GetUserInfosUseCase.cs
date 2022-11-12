@@ -40,7 +40,8 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 			var user = this.database.Users.Include(c => c.Credential).First(c => c.Id == userId);
 			var userData = new GetUserInfosOutput();
 
-			switch (user.Credential.Role) {
+			switch (user.Credential.Role)
+			{
                 case "Funcionario":
 				var funcionario = this.database.Funcionarios.Include(c => c.User).First(c => c.User.Id == userId);
 				userData = funcionario.MapObjectTo(userData);
