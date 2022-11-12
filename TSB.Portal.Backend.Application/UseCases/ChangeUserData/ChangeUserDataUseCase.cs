@@ -4,7 +4,6 @@ using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.CrossCutting.Extensions;
 using TSB.Portal.Backend.Infra.Repository;
-using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
 using System.Text.RegularExpressions;
 

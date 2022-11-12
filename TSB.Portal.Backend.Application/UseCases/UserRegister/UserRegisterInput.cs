@@ -24,12 +24,4 @@ public class UserRegisterInput {
 	public string Document { get; set; }
 
 	public Roles? Role { get; set; }
-
-	// Cliente
-	public string Telefone { get; set; }
-    public EnderecoDTO Endereco { get; set; }
-    public string ChavePIX { get; set; }
-
-	// Funcionario
-	public string Cargo { get; set; }
 }

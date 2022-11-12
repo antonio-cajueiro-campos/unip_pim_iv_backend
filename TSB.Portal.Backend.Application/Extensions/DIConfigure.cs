@@ -16,10 +16,11 @@ public static class DIConfigure
 		self.AddScoped<IDefaultUseCase<AuthenticateOutput, AuthenticateInput>, AuthenticateUseCase>();
 		self.AddScoped<IDefaultUseCase<UserRegisterOutput, UserRegisterInput>, UserRegisterUseCase>();
 		self.AddScoped<IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput>, GetUserInfosUseCase>();
+		self.AddScoped<IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput>, ChangeUserDataUseCase>();
 		self.AddScoped<IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput>, ValidateJwtTokenUseCase>();
 		self.AddScoped<IDefaultUseCase<EmployeeRegisterOutput, EmployeeRegisterInput>, EmployeeRegisterUseCase>();
-		self.AddScoped<IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput>, ChangeUserDataUseCase>();
 		self.AddScoped<IDefaultUseCase<GetPriceSelectorsOutput, GetPriceSelectorsInput>, GetPriceSelectorsUseCase>();
+		self.AddScoped<IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput>, CompleteRegistrationUseCase>();
 
 		return self;
 	}

@@ -65,7 +65,6 @@ public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegis
 			if (user.Credential.Role == "Cliente") {
 				var cliente = userRegisterInput.MapObjectTo(new Cliente());
 				cliente.User = user;
-				cliente.Endereco = userRegisterInput.Endereco.MapObjectTo(new Endereco());
 				this.database.Clientes.Add(cliente);
 				this.database.SaveChanges();
 
