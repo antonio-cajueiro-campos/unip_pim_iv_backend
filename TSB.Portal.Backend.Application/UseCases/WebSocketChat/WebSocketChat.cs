@@ -11,7 +11,7 @@ namespace TSB.Portal.Backend.Application.UseCases.WebSocketChat;
 //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class WebSocketChat : Hub
 {
-	private DataContext database { get; set; }
+	private readonly DataContext _database;
 	private static List<UserHub> UserHubList;
 	private static List<UserChat> UserChatList;
 	private static List<Chat> ChatList;
@@ -26,7 +26,7 @@ public class WebSocketChat : Hub
 		if (ChatList == null || ChatList.Count == 0)
 			ChatList = new List<Chat>();
 
-		this.database = database;
+		_database = database;
 	}
 
 	public override Task OnConnectedAsync()
@@ -38,7 +38,7 @@ public class WebSocketChat : Hub
 		string tokenJwt = query["access_token"];
 		long userId = long.Parse(query["userId"]);
 
-		var userDb = this.database.Users.Include(u => u.Credential).FirstOrDefault(u => u.Id == userId);
+		var userDb = _database.Users.Include(u => u.Credential).FirstOrDefault(u => u.Id == userId);
 		if (userDb != null) {
 			var newUser = new UserHub()
 			{
@@ -67,7 +67,7 @@ public class WebSocketChat : Hub
 		return base.OnDisconnectedAsync(exception);
 	}
 
-	public void InitCliente(long userId, string type)
+	public void InitCliente(long userId, string type, string sinistro = "")
 	{
 		var userHub = UserHubList.FirstOrDefault(u => u.UserId == userId);
 		if (userHub != null)
@@ -81,7 +81,7 @@ public class WebSocketChat : Hub
 			{
 				if (!chatsOfUser.Any(c => c.Type == type))
 				{
-					var firstMessage = GetFirstMessage(type);
+					var firstMessage = GetFirstMessage(type, sinistro, userHub.Username);
 					Chat chat = CreateChat(userId, type, firstMessage);
 					Clients.Client(connectionId).SendAsync("initCliente", chat.ChatId);
 					StartedChats(userId);
@@ -194,7 +194,7 @@ public class WebSocketChat : Hub
 				Clients.Client(u.UserConnectionId).SendAsync("closeSession");
 			});
 
-			this.RemoveAllUsersFromChat(chatId);
+			RemoveAllUsersFromChat(chatId);
 			ChatList.Remove(chat);
 		}
 	}
@@ -314,7 +314,7 @@ public class WebSocketChat : Hub
 		}
 	}
 
-	private Message GetFirstMessage(string type)
+	private Message GetFirstMessage(string type, string sinitro = "", string cliente = "")
 	{
 		switch (type)
 		{
@@ -325,7 +325,7 @@ public class WebSocketChat : Hub
 					OwnerId = 0,
 					Timestamp = DateTime.Now,
 					Username = "System",
-					Text = "O seguinte sinistro ocorreu em {endereço}, solicito a ativação do meu seguro.",
+					Text = $"Solicitação de ativamento de seguro, sinitro {sinitro} para o cliente {cliente}.",
 					Type = ChatMessageTypes.Message.ToString()
 				};
 			default: return null;

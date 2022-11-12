@@ -12,8 +12,8 @@ using TSB.Portal.Backend.Infra.Repository;
 namespace TSB.Portal.Backend.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220919063441_InitialSchema")]
-    partial class InitialSchema
+    [Migration("20221024042204_FirstSchema")]
+    partial class FirstSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

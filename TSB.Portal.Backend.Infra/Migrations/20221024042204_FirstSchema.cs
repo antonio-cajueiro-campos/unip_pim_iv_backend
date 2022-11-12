@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TSB.Portal.Backend.Infra.Migrations
 {
-    public partial class InitialSchema : Migration
+    public partial class FirstSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
