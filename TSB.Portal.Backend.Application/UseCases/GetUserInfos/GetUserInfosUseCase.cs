@@ -44,15 +44,15 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
                 case "Funcionario":
 				var funcionario = this.database.Funcionarios.Include(c => c.User).First(c => c.User.Id == userId);
 				userData = funcionario.MapObjectTo(userData);
-				userData.User = funcionario.User.MapObjectTo(new UserDTO());
-				userData.User.Credential = funcionario.User.Credential.MapObjectTo(new CredentialDTO());
+				if (funcionario.User != null) userData.User = funcionario.User.MapObjectTo(new UserDTO());
+				if (funcionario.User.Credential != null) userData.User.Credential = funcionario.User.Credential.MapObjectTo(new CredentialDTO());
                 break;
                 case "Cliente":
 				var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).First(c => c.User.Id == userId);
 				userData = cliente.MapObjectTo(userData);
-				userData.User = cliente.User.MapObjectTo(new UserDTO());
-				userData.User.Credential = cliente.User.Credential.MapObjectTo(new CredentialDTO());
-				userData.Endereco = cliente.Endereco.MapObjectTo(new EnderecoDTO());
+				if (cliente.User != null) userData.User = cliente.User.MapObjectTo(new UserDTO());
+				if (cliente.User.Credential != null) userData.User.Credential = cliente.User.Credential.MapObjectTo(new CredentialDTO());
+				if (cliente.Endereco != null) userData.Endereco = cliente.Endereco.MapObjectTo(new EnderecoDTO());
                 break;
             }
 
