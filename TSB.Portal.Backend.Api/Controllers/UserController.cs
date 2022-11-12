@@ -3,6 +3,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using TSB.Portal.Backend.Api.Extensions;
 using TSB.Portal.Backend.Application.Transport;
 using TSB.Portal.Backend.Application.UseCases.ChangeUserData;
+using TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 using TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 using TSB.Portal.Backend.Application.UseCases.UserRegister;
 
@@ -15,15 +16,18 @@ public class UserController : ControllerBase
     public IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister;
     public IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos;
     public IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData;
+    public IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput> completeRegistration;
     public UserController
     (
         IDefaultUseCase<UserRegisterOutput, UserRegisterInput> userRegister, 
         IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput> getUserInfos,
-        IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData
+        IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput> changeUserData,
+        IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput> completeRegistration
     ) {
         this.userRegister = userRegister;
         this.getUserInfos = getUserInfos;
         this.changeUserData = changeUserData;
+        this.completeRegistration = completeRegistration;
     }
 
     [HttpPost("register")]
@@ -34,6 +38,17 @@ public class UserController : ControllerBase
     public IActionResult UserRegister([FromBody] UserRegisterInput userRegister)
     {
         var result = this.userRegister.Handle(userRegister);
+    	return new ObjectResult(result).SetStatus(result.Status);
+    }
+
+    [HttpPost("complete-registration")]
+    [SwaggerOperation("Completra registro do usuário no sistema")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DefaultResponse<CompleteRegistrationOutput>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DefaultResponse<CompleteRegistrationOutput>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<CompleteRegistrationOutput>))]
+    public IActionResult UserCompleteRegistration([FromBody] CompleteRegistrationInput completeRegistration)
+    {
+        var result = this.completeRegistration.Handle(completeRegistration);
     	return new ObjectResult(result).SetStatus(result.Status);
     }
 
