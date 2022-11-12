@@ -111,6 +111,11 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 		{
 			new ()
 			{
+				Text = "R$ 0,00",
+				Value = decimal.Zero
+			},
+			new ()
+			{
 				Text = "R$ 1.000,00",
 				Value = 1000M
 			},
