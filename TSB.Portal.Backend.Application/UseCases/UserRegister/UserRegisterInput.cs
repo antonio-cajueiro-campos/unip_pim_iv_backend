@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using TSB.Portal.Backend.Application.EntitiesUseCase.DTO;
 using TSB.Portal.Backend.CrossCutting.Constants;
 using TSB.Portal.Backend.CrossCutting.Enums;
 using TSB.Portal.Backend.CrossCutting.Validation;

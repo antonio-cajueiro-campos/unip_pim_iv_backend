@@ -4,27 +4,27 @@ using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.CrossCutting.Constants;
 
-namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
+namespace TSB.Portal.Backend.Application.UseCases.RegistrateSinistro;
 
-public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput>
+public class RegistrateSinistroUseCase : IDefaultUseCase<RegistrateSinistroOutput, RegistrateSinistroInput>
 {
 private DataContext database { get; set; }
-	public CompleteRegistrationUseCase(DataContext database)
+	public RegistrateSinistroUseCase(DataContext database)
 	{
 		this.database = database;
 	}
-	public DefaultResponse<CompleteRegistrationOutput> Handle(CompleteRegistrationInput completeRegistration)
+	public DefaultResponse<RegistrateSinistroOutput> Handle(RegistrateSinistroInput registrateSinistro)
 	{
-		return this.CompleteRegistration(completeRegistration);
+		return this.RegistrateSinistro(registrateSinistro);
 	}
-	private DefaultResponse<CompleteRegistrationOutput> CompleteRegistration(CompleteRegistrationInput completeRegistration)
+	private DefaultResponse<RegistrateSinistroOutput> RegistrateSinistro(RegistrateSinistroInput registrateSinistro)
 	{
 		try {
 			
 			//get user by id
 
 			// set new infos
-			var Endereco = completeRegistration.MapObjectTo(new Endereco());
+			var Sinistro = registrateSinistro.MapObjectTo(new Sinistro());
 			
 			//update user
 			//this.database.Users.Add(user);
