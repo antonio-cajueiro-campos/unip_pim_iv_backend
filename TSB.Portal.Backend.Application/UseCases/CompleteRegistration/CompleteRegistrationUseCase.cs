@@ -9,7 +9,7 @@ namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 
 public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput>
 {
-private DataContext database { get; set; }
+	private DataContext database { get; set; }
 	public CompleteRegistrationUseCase(DataContext database)
 	{
 		this.database = database;
@@ -20,25 +20,40 @@ private DataContext database { get; set; }
 	}
 	private DefaultResponse<CompleteRegistrationOutput> CompleteRegistration(CompleteRegistrationInput completeRegistration)
 	{
-		try {
-			
+		try
+		{
+			if (!completeRegistration.ClaimsPrincipal.HasClaim((e) => true))
+			{
+				return new()
+				{
+					Status = 400,
+					Error = true,
+					Data = null,
+					Message = Messages.BadRequest
+				};
+			}
+
 			var userId = completeRegistration.ClaimsPrincipal.GetUserId();
 			var userRole = completeRegistration.ClaimsPrincipal.GetUserRole();
 
 			var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).FirstOrDefault(c => c.User.Id == userId);
 
 			cliente.Endereco = completeRegistration.MapObjectTo(new Endereco());
-			
+
 			this.database.Clientes.Update(cliente);
 			this.database.SaveChanges();
 
-			return new() {
+			return new()
+			{
 				Status = 200,
 				Error = false,
 				Message = Messages.Updated
 			};
-		} catch (Exception ex) {
-			return new() {
+		}
+		catch (Exception ex)
+		{
+			return new()
+			{
 				Status = 500,
 				Error = true,
 				Message = Messages.Error + ex,
