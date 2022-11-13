@@ -27,10 +27,10 @@ public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserIn
 		{
 			return new()
 			{
-				Status = 400,
+				Status = 401,
 				Error = true,
 				Data = null,
-				Message = Messages.BadRequest
+				Message = Messages.Unauthorized
 			};
 		}
 

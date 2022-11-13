@@ -14,10 +14,12 @@ public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationO
 	{
 		this.database = database;
 	}
+
 	public DefaultResponse<CompleteRegistrationOutput> Handle(CompleteRegistrationInput completeRegistration)
 	{
 		return this.CompleteRegistration(completeRegistration);
 	}
+
 	private DefaultResponse<CompleteRegistrationOutput> CompleteRegistration(CompleteRegistrationInput completeRegistration)
 	{
 		try
@@ -26,17 +28,27 @@ public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationO
 			{
 				return new()
 				{
-					Status = 400,
+					Status = 401,
 					Error = true,
 					Data = null,
-					Message = Messages.BadRequest
+					Message = Messages.Unauthorized
 				};
 			}
 
 			var userId = completeRegistration.ClaimsPrincipal.GetUserId();
 			var userRole = completeRegistration.ClaimsPrincipal.GetUserRole();
-
 			var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).FirstOrDefault(c => c.User.Id == userId);
+
+			if (cliente.Endereco != null)
+			{
+				return new()
+				{
+					Status = 400,
+					Error = true,
+					Data = null,
+					Message = Messages.InvalidOperation
+				};
+			}
 
 			cliente.Endereco = completeRegistration.MapObjectTo(new Endereco());
 
