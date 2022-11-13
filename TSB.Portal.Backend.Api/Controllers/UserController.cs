@@ -48,6 +48,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<CompleteRegistrationOutput>))]
     public IActionResult UserCompleteRegistration([FromBody] CompleteRegistrationInput completeRegistration)
     {
+        completeRegistration.ClaimsPrincipal = HttpContext.User;
         var result = this.completeRegistration.Handle(completeRegistration);
     	return new ObjectResult(result).SetStatus(result.Status);
     }

@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 
 public class CompleteRegistrationInput
@@ -15,4 +17,7 @@ public class CompleteRegistrationInput
 
 	// Funcionario
 	public string Cargo { get; set; }
+
+	// identificação
+	public ClaimsPrincipal ClaimsPrincipal { get; set; }
 }

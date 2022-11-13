@@ -3,6 +3,7 @@ using TSB.Portal.Backend.CrossCutting.Extensions;
 using TSB.Portal.Backend.Infra.Repository;
 using TSB.Portal.Backend.Infra.Repository.Entities;
 using TSB.Portal.Backend.CrossCutting.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 
@@ -21,19 +22,20 @@ private DataContext database { get; set; }
 	{
 		try {
 			
-			//get user by id
+			var userId = completeRegistration.ClaimsPrincipal.GetUserId();
+			var userRole = completeRegistration.ClaimsPrincipal.GetUserRole();
 
-			// set new infos
-			var Endereco = completeRegistration.MapObjectTo(new Endereco());
+			var cliente = this.database.Clientes.Include(c => c.User).Include(c => c.Endereco).FirstOrDefault(c => c.User.Id == userId);
+
+			cliente.Endereco = completeRegistration.MapObjectTo(new Endereco());
 			
-			//update user
-			//this.database.Users.Add(user);
+			this.database.Clientes.Update(cliente);
 			this.database.SaveChanges();
 
 			return new() {
 				Status = 200,
 				Error = false,
-				Message = Messages.Success
+				Message = Messages.Updated
 			};
 		} catch (Exception ex) {
 			return new() {
