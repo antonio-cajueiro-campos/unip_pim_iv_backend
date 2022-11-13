@@ -26,5 +26,16 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		public const string PasswordsNotMatch = "As senhas não coincidem.";
 		public const string RequiredName = "Preencha o campo Nome.";
 		public const string RequiredDocument = "Preencha o campo Documento.";
+
+		// Complete registration fields
+
+		public const string RequiredTelefone = "Preencha o campo Telefone.";
+		public const string RequiredCEP = "Preencha o campo CEP.";
+		public const string RequiredCidade = "Preencha o campo Cidade.";
+		public const string RequiredEstado = "Preencha o campo Estado.";
+		public const string RequiredBairro = "Preencha o campo Bairro.";
+		public const string RequiredRua = "Preencha o campo Rua.";
+		public const string RequiredNumero = "Preencha o campo Número.";
+		public const string RequiredChavePIX = "Preencha o campo Chave PIX.";
     }
 }
