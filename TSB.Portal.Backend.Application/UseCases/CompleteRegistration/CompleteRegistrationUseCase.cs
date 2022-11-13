@@ -9,7 +9,8 @@ namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 
 public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput>
 {
-	private DataContext database { get; set; }
+	private readonly DataContext database;
+	
 	public CompleteRegistrationUseCase(DataContext database)
 	{
 		this.database = database;

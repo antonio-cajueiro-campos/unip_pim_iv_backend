@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BCryptNet = BCrypt.Net.BCrypt;
 using Microsoft.IdentityModel.Tokens;
@@ -15,9 +14,9 @@ using TSB.Portal.Backend.CrossCutting.Extensions;
 namespace TSB.Portal.Backend.Application.UseCases.Authenticate;
 public class AuthenticateUseCase : IDefaultUseCase<AuthenticateOutput, AuthenticateInput>
 {
-	private DataContext database { get; set; }
-	private IConfiguration configuration { get; set; }
-	private IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken { get; set; }
+	private readonly DataContext database;
+	private readonly IConfiguration configuration;
+	private readonly IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken;
 	public AuthenticateUseCase(DataContext database, IConfiguration configuration, IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput> validateJwtToken)
 	{
 		this.database = database;

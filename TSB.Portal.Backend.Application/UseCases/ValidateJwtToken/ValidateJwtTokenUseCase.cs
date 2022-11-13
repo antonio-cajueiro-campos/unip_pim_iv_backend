@@ -9,8 +9,8 @@ using TSB.Portal.Backend.CrossCutting.Constants;
 namespace TSB.Portal.Backend.Application.UseCases.ValidateJwtToken;
 public class ValidateJwtTokenUseCase : IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput>
 {
-	private DataContext database { get; set; }
-	private IConfiguration configuration { get; set; }
+	private readonly DataContext database;
+	private readonly IConfiguration configuration;
 	public ValidateJwtTokenUseCase(DataContext database, IConfiguration configuration)
 	{
 		this.database = database;

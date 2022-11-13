@@ -8,35 +8,43 @@ namespace TSB.Portal.Backend.Application.UseCases.RegistrateCobertura;
 
 public class RegistrateCoberturaUseCase : IDefaultUseCase<RegistrateCoberturaOutput, RegistrateCoberturaInput>
 {
-private DataContext database { get; set; }
+	private readonly DataContext database;
+
 	public RegistrateCoberturaUseCase(DataContext database)
 	{
 		this.database = database;
 	}
+
 	public DefaultResponse<RegistrateCoberturaOutput> Handle(RegistrateCoberturaInput registrateCobertura)
 	{
 		return this.RegistrateCobertura(registrateCobertura);
 	}
+	
 	private DefaultResponse<RegistrateCoberturaOutput> RegistrateCobertura(RegistrateCoberturaInput registrateCobertura)
 	{
-		try {
-			
+		try
+		{
+
 			//get user by id
 
 			// set new infos
 			var Cobertura = registrateCobertura.MapObjectTo(new Cobertura());
-			
+
 			//update user
 			//this.database.Users.Add(user);
 			this.database.SaveChanges();
 
-			return new() {
+			return new()
+			{
 				Status = 200,
 				Error = false,
 				Message = Messages.Success
 			};
-		} catch (Exception ex) {
-			return new() {
+		}
+		catch (Exception ex)
+		{
+			return new()
+			{
 				Status = 500,
 				Error = true,
 				Message = Messages.Error + ex,

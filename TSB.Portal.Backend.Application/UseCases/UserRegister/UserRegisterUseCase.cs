@@ -10,8 +10,8 @@ using TSB.Portal.Backend.CrossCutting.Enums;
 
 namespace TSB.Portal.Backend.Application.UseCases.UserRegister;
 public class UserRegisterUseCase : IDefaultUseCase<UserRegisterOutput, UserRegisterInput> {
-	private DataContext database { get; set; }
-	private IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticateUseCase { get; set; }
+	private readonly DataContext database;
+	private readonly IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticateUseCase;
 	public UserRegisterUseCase(DataContext database, IDefaultUseCase<AuthenticateOutput, AuthenticateInput> authenticateUseCase)
 	{
 		this.database = database;

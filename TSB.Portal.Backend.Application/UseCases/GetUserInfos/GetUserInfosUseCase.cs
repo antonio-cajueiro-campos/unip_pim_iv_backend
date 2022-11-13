@@ -9,7 +9,7 @@ using TSB.Portal.Backend.Infra.Repository;
 namespace TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 public class GetUserInfosUseCase : IDefaultUseCase<GetUserInfosOutput, GetUserInfosInput>
 {
-	private DataContext database { get; set; }
+	private readonly DataContext database;
 
 	public GetUserInfosUseCase(DataContext database)
 	{

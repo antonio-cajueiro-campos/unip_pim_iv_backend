@@ -6,7 +6,7 @@ using TSB.Portal.Backend.Application.EntitiesUseCase;
 namespace TSB.Portal.Backend.Application.UseCases.GetPriceSelectors;
 public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput, GetPriceSelectorsInput>
 {
-	private DataContext database { get; set; }
+	private readonly DataContext database;
 	public GetPriceSelectorsUseCase(DataContext database)
 	{
 		this.database = database;

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace TSB.Portal.Backend.Application.UseCases.ChangeUserData;
 public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, ChangeUserDataInput>
 {
-	private DataContext database { get; set; }
+	private readonly DataContext database;
 	public ChangeUserDataUseCase(DataContext database)
 	{
 		this.database = database;

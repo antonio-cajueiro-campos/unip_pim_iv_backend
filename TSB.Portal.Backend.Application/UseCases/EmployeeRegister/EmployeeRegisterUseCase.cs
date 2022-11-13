@@ -5,7 +5,7 @@ using TSB.Portal.Backend.Infra.Repository;
 namespace TSB.Portal.Backend.Application.UseCases.EmployeeRegister;
 public class EmployeeRegisterUseCase : IDefaultUseCase<EmployeeRegisterOutput, EmployeeRegisterInput>
 {
-	private DataContext database { get; set; }
+	private readonly DataContext database;
 
 	public EmployeeRegisterUseCase(DataContext database)
 	{
