@@ -10,7 +10,7 @@ namespace TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationOutput, CompleteRegistrationInput>
 {
 	private readonly DataContext database;
-	
+
 	public CompleteRegistrationUseCase(DataContext database)
 	{
 		this.database = database;
@@ -52,6 +52,8 @@ public class CompleteRegistrationUseCase : IDefaultUseCase<CompleteRegistrationO
 			}
 
 			cliente.Endereco = completeRegistration.MapObjectTo(new Endereco());
+			cliente.ChavePIX = completeRegistration.ChavePIX;
+			cliente.Telefone = completeRegistration.Telefone;
 
 			this.database.Clientes.Update(cliente);
 			this.database.SaveChanges();
