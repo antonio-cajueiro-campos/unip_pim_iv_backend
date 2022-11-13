@@ -79,7 +79,8 @@ public class ChangeUserDataUseCase : IDefaultUseCase<ChangeUserDataOutput, Chang
 						return GetUserNotFoundError();
 
 					cliente = changeUserData.MapObjectToIfNotNull(cliente);
-					cliente.Endereco = changeUserData.MapObjectToIfNotNull(cliente.Endereco);
+					if (cliente.Endereco != null)
+						cliente.Endereco = changeUserData.MapObjectToIfNotNull(cliente.Endereco);
 					database.Clientes.Update(cliente);
 					database.SaveChanges();
 					database.Entry(cliente).GetDatabaseValues();
