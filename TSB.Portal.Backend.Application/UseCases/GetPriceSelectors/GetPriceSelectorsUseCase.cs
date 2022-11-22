@@ -54,7 +54,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Incêndio, raio e explosão",
 				Icon = "fire",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 26,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -63,7 +63,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Perda e pagamento de aluguel",
 				Icon = "building",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 32,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -72,7 +72,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Vendaval, granizo e ciclone",
 				Icon = "wind",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 54,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -81,7 +81,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Responsabilidade civil familiar",
 				Icon = "user-group",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 41,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -90,7 +90,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Danos elétricos",
 				Icon = "bolt",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 71,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -99,7 +99,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Title = "Roubo",
 				Icon = "shield",
 				MonthlyPayment = 0M,
-				NumberOfMonths = 22,
+				NumberOfMonths = 12,
 				List = GetListSelectorPrices()
 			},
 		};
