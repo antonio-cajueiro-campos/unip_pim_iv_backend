@@ -5,6 +5,6 @@ public class Cobertura
 {
     [Key]
     public long Id { get; set; }
-    public Sinistro Sinistro { get; set; }
-    public Decimal ValorCobertura { get; set; }
+    public IEnumerable<Sinistro> Sinistros { get; set; }
+    public decimal ValorCobertura { get; set; }
 }

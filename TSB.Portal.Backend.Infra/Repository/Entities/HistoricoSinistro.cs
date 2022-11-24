@@ -8,5 +8,5 @@ public class HistoricoSinistro
     public Cliente Cliente { get; set; }
     public Sinistro Sinistro { get; set; }
     public DateTime Ocorrencia { get; set; }
-    public Decimal Valor { get; set; }
+    public decimal Valor { get; set; }
 }
