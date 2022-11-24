@@ -44,6 +44,10 @@ public class RegistrateApoliceUseCase : IDefaultUseCase<RegistrateApoliceOutput,
 				};
 			}
 
+			var apoliceDB = this.database.Apolices.FirstOrDefault(a => a.Cliente.Id == registrateApolice.ClienteId);
+
+			if (apoliceDB != null) return ApoliceAlreadyExists();
+
 			var CoberturaOutput = registrateCobertura.Handle(new() {
 				ValorCobertura = registrateApolice.ValorCobertura
 			});
@@ -125,6 +129,16 @@ public class RegistrateApoliceUseCase : IDefaultUseCase<RegistrateApoliceOutput,
 			Error = true,
 			Data = null,
 			Message = Messages.ClienteDBNotFound
+		};
+	}
+	private DefaultResponse<RegistrateApoliceOutput> ApoliceAlreadyExists()
+	{
+		return new()
+		{
+			Status = 400,
+			Error = true,
+			Data = null,
+			Message = Messages.ApoliceAlreadyExists
 		};
 	}
 }

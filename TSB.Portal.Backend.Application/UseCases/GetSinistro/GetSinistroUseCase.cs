@@ -20,18 +20,30 @@ public class GetSinistroUseCase : IDefaultUseCase<GetSinistroOutput, GetSinistro
 	{
 		return this.GetSinistro(sinistroInput);
 	}
-	
+
 	private DefaultResponse<GetSinistroOutput> GetSinistro(GetSinistroInput sinistroInput)
 	{
 		try
 		{
-			var historicoSinistro = database.HistoricoSinistros
+			var results = database.HistoricoSinistros
 				.Include(hs => hs.Cliente)
 				.Include(hs => hs.Sinistro)
-				.FirstOrDefault(hs => hs.Cliente.Id == sinistroInput.IdCliente);
+				.Where(hs => hs.Cliente.Id == sinistroInput.IdCliente).ToList();
 
-			if (historicoSinistro == null) return GetHistoricoSinistrosNotFoundError();
-			
+			var SinistroHistoryList = new List<SinistroHistory>();
+
+			foreach (var result in results)
+			{
+				SinistroHistoryList.Add(
+					new()
+					{
+						TipoSinistro = result.Sinistro.Tipo,
+						Ocorrencia = result.Ocorrencia,
+						Valor = result.Valor
+					}
+				);
+			}
+
 			return new()
 			{
 				Status = 200,
@@ -39,9 +51,7 @@ public class GetSinistroUseCase : IDefaultUseCase<GetSinistroOutput, GetSinistro
 				Message = Messages.Success,
 				Data = new()
 				{
-					Valor = historicoSinistro.Valor,
-					Ocorrencia = historicoSinistro.Ocorrencia,
-					TipoSinistro = historicoSinistro.Sinistro.Tipo
+					Sinistros = SinistroHistoryList
 				}
 			};
 		}
@@ -66,8 +76,8 @@ public class GetSinistroUseCase : IDefaultUseCase<GetSinistroOutput, GetSinistro
 	{
 		return new()
 		{
-			Status = 404,
-			Error = true,
+			Status = 200,
+			Error = false,
 			Data = null,
 			Message = Messages.HistoricoSinistrosNotFound
 		};

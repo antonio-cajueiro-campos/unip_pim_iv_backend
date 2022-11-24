@@ -4,6 +4,7 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
     public static class Messages
     {
 		// Requests messages
+		public const string ApoliceAlreadyExists = "Já existe uma apolice cadastrada para esse usuário";
 		public const string CoberturaDBNotFound = "Cobertura não encontrada no banco de dados.";
 		public const string ClienteDBNotFound = "Cliente não encontrado no banco de dados.";
 		public const string HistoricoSinistrosNotFound = "Nenhum sinistro encotrado com esse código do cliente.";

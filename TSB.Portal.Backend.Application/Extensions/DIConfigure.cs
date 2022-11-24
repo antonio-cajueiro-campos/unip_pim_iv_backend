@@ -14,6 +14,9 @@ using TSB.Portal.Backend.Application.UseCases.RegistrateCobertura;
 using TSB.Portal.Backend.Application.UseCases.GetSinistro;
 using TSB.Portal.Backend.Application.UseCases.GetApolice;
 using TSB.Portal.Backend.Application.UseCases.RegistrateApolice;
+using TSB.Portal.Backend.Application.UseCases.GetAllClients;
+using TSB.Portal.Backend.Application.UseCases.GetClientById;
+using TSB.Portal.Backend.Application.UseCases.ActiveInsurance;
 
 namespace TSB.Portal.Backend.Application.Extensions;
 public static class DIConfigure
@@ -33,6 +36,9 @@ public static class DIConfigure
 		self.AddScoped<IDefaultUseCase<GetSinistroOutput, GetSinistroInput>, GetSinistroUseCase>();
 		self.AddScoped<IDefaultUseCase<GetApoliceOutput, GetApoliceInput>, GetApoliceUseCase>();
 		self.AddScoped<IDefaultUseCase<RegistrateApoliceOutput, RegistrateApoliceInput>, RegistrateApoliceUseCase>();
+		self.AddScoped<IDefaultUseCase<GetClientByIdOutput, GetClientByIdInput>, GetClientByIdUseCase>();
+		self.AddScoped<IDefaultUseCase<GetAllClientsOutput, GetAllClientsInput>, GetAllClientsUseCase>();
+		self.AddScoped<IDefaultUseCase<ActiveInsuranceOutput, ActiveInsuranceInput>, ActiveInsuranceUseCase>();
 
 		return self;
 	}

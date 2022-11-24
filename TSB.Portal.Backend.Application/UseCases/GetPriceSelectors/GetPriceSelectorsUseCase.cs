@@ -55,6 +55,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "fire",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1.6,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -64,6 +65,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "building",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1.1,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -73,6 +75,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "wind",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1.6,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -82,6 +85,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "user-group",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -91,6 +95,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "bolt",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1.2,
 				List = GetListSelectorPrices()
 			},
 			new ()
@@ -100,6 +105,7 @@ public class GetPriceSelectorsUseCase : IDefaultUseCase<GetPriceSelectorsOutput,
 				Icon = "shield",
 				MonthlyPayment = 0M,
 				NumberOfMonths = 12,
+				SinistroTax = 1.4,
 				List = GetListSelectorPrices()
 			},
 		};

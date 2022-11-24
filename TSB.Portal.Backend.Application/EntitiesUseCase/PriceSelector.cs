@@ -7,4 +7,5 @@ public class PriceSelector {
 	public List<Selector> List { get; set; }
 	public decimal MonthlyPayment { get; set; }
 	public int NumberOfMonths { get; set; }
+	public double SinistroTax { get; set; }
 }
