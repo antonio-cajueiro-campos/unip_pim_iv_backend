@@ -19,26 +19,32 @@ public class RegistrateSinistroUseCase : IDefaultUseCase<RegistrateSinistroOutpu
 	{
 		return this.RegistrateSinistro(registrateSinistro);
 	}
-	
+
 	private DefaultResponse<RegistrateSinistroOutput> RegistrateSinistro(RegistrateSinistroInput registrateSinistro)
 	{
 		try
 		{
+			if (registrateSinistro.Tipo == null || registrateSinistro.ValorSinistro == decimal.Zero)
+			{
+				return new()
+				{
+					Status = 400,
+					Error = true,
+					Message = Messages.BadRequest,
+					Data = null
+				};
+			}
 
-			//get user by id
-
-			// set new infos
 			var Sinistro = registrateSinistro.MapObjectTo(new Sinistro());
 
-			//update user
-			//this.database.Users.Add(user);
+			this.database.Sinistros.Add(Sinistro);
 			this.database.SaveChanges();
 
 			return new()
 			{
-				Status = 200,
+				Status = 201,
 				Error = false,
-				Message = Messages.Success
+				Message = Messages.Created
 			};
 		}
 		catch (Exception ex)

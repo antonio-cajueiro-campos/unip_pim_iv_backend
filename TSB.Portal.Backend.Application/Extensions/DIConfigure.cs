@@ -11,6 +11,9 @@ using TSB.Portal.Backend.Application.UseCases.CompleteRegistration;
 using TSB.Portal.Backend.Application.UseCases.EmployeeRegister;
 using TSB.Portal.Backend.Application.UseCases.RegistrateSinistro;
 using TSB.Portal.Backend.Application.UseCases.RegistrateCobertura;
+using TSB.Portal.Backend.Application.UseCases.GetSinistro;
+using TSB.Portal.Backend.Application.UseCases.GetApolice;
+using TSB.Portal.Backend.Application.UseCases.RegistrateApolice;
 
 namespace TSB.Portal.Backend.Application.Extensions;
 public static class DIConfigure
@@ -27,6 +30,9 @@ public static class DIConfigure
 		self.AddScoped<IDefaultUseCase<RegistrateSinistroOutput, RegistrateSinistroInput>, RegistrateSinistroUseCase>();
 		self.AddScoped<IDefaultUseCase<UserRegisterOutput, UserRegisterInput>, UserRegisterUseCase>();
 		self.AddScoped<IDefaultUseCase<ValidateJwtTokenOutput, ValidateJwtTokenInput>, ValidateJwtTokenUseCase>();
+		self.AddScoped<IDefaultUseCase<GetSinistroOutput, GetSinistroInput>, GetSinistroUseCase>();
+		self.AddScoped<IDefaultUseCase<GetApoliceOutput, GetApoliceInput>, GetApoliceUseCase>();
+		self.AddScoped<IDefaultUseCase<RegistrateApoliceOutput, RegistrateApoliceInput>, RegistrateApoliceUseCase>();
 
 		return self;
 	}

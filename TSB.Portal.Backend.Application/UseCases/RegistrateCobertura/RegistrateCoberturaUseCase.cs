@@ -24,21 +24,33 @@ public class RegistrateCoberturaUseCase : IDefaultUseCase<RegistrateCoberturaOut
 	{
 		try
 		{
+			if (registrateCobertura.ValorCobertura == decimal.Zero)
+			{
+				return new()
+				{
+					Status = 400,
+					Error = true,
+					Message = Messages.BadRequest,
+					Data = null
+				};
+			}
 
-			//get user by id
-
-			// set new infos
 			var Cobertura = registrateCobertura.MapObjectTo(new Cobertura());
 
-			//update user
-			//this.database.Users.Add(user);
+			this.database.Coberturas.Add(Cobertura);
 			this.database.SaveChanges();
+
+			database.Entry(Cobertura).GetDatabaseValues();
 
 			return new()
 			{
-				Status = 200,
+				Status = 201,
 				Error = false,
-				Message = Messages.Success
+				Message = Messages.Created,
+				Data = new ()
+				{
+					Cobertura = Cobertura
+				}
 			};
 		}
 		catch (Exception ex)

@@ -4,6 +4,12 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
     public static class Messages
     {
 		// Requests messages
+		public const string CoberturaDBNotFound = "Cobertura não encontrada no banco de dados.";
+		public const string ClienteDBNotFound = "Cliente não encontrado no banco de dados.";
+		public const string HistoricoSinistrosNotFound = "Nenhum sinistro encotrado com esse código do cliente.";
+		public const string ApoliceNotFound = "Apolice não encontrada.";
+		public const string CoberturaNotFound = "Cobertura não encontrada.";
+		public const string SinistroNotFound = "Sinistro não encontrado.";
 		public const string Created = "Criado com sucesso!";
 		public const string Deleted = "Apagado com sucesso!";
 		public const string Updated = "Atualizado com sucesso!";
