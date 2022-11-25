@@ -50,12 +50,12 @@ public class FuncionarioController : ControllerBase
 		return new ObjectResult(result).SetStatus(result.Status);
 	}
 
-	[HttpGet("activeInsurance")]
+	[HttpPost("activeInsurance")]
 	[SwaggerOperation("Ativa o seguro do Cliente")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DefaultResponse<ActiveInsuranceOutput>))]
 	[ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DefaultResponse<ActiveInsuranceOutput>))]
 	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(DefaultResponse<ActiveInsuranceOutput>))]
-	public IActionResult ActiveInsurance([FromQuery][Required] ActiveInsuranceInput input)
+	public IActionResult ActiveInsurance([FromBody][Required] ActiveInsuranceInput input)
 	{
 		var result = this.activeInsurance.Handle(input);
 		return new ObjectResult(result).SetStatus(result.Status);

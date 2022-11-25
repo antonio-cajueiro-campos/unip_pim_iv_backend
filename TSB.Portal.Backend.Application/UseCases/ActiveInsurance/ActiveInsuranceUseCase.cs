@@ -33,7 +33,7 @@ public class ActiveInsuranceUseCase : IDefaultUseCase<ActiveInsuranceOutput, Act
 			if (apolice == null) return new()
 			{
 				Status = 404,
-				Error = false,
+				Error = true,
 				Message = Messages.ApoliceNotFound
 			};
 
@@ -43,7 +43,7 @@ public class ActiveInsuranceUseCase : IDefaultUseCase<ActiveInsuranceOutput, Act
 			if (sinistro == null) return new()
 			{
 				Status = 404,
-				Error = false,
+				Error = true,
 				Message = Messages.SinistroNotFound
 			};
 
