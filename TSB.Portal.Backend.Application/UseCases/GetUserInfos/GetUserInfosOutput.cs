@@ -4,6 +4,7 @@ namespace TSB.Portal.Backend.Application.UseCases.GetUserInfos;
 
 public class GetUserInfosOutput
 {
+    public long Id { get; set; }
 	public UserDTO User { get; set; }
     public EnderecoDTO Endereco { get; set; }
     public string Telefone { get; set; }
