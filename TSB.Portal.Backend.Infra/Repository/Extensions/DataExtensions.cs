@@ -19,7 +19,7 @@ public static class DataExtensions {
 	}
 
 	public static DbContextOptionsBuilder AddDefaultConnection(this DbContextOptionsBuilder  self) {
-		self.UseSqlServer("Server=bancounip.ddns.net;Initial Catalog=tsb;User Id=sa;Password=0XamP45nCjHy;");
+		self.UseSqlServer("Server=localhost;Initial Catalog=tsb;User Id=sa;Password=0XamP45nCjHy;");
 		return self;
 	}
 }
