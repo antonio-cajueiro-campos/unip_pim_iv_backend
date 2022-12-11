@@ -35,7 +35,6 @@ namespace TSB.Portal.Backend.CrossCutting.Constants
 		public const string RequiredDocument = "Preencha o campo Documento.";
 
 		// Complete registration fields
-
 		public const string RequiredTelefone = "Preencha o campo Telefone.";
 		public const string RequiredCEP = "Preencha o campo CEP.";
 		public const string RequiredCidade = "Preencha o campo Cidade.";
